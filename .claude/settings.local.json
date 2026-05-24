@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find 'D:/Rayhand/Android/York Cafe' -name *.java -o -name *.xml)",
+      "Bash(find 'D:/Rayhand/Android/York Cafe/app/src/main/res' -name *.png -o -name *.jpg -o -name *.jpeg -o -name *.webp -o -name *.svg -o -name *.xml -o -name *.9.png)",
+      "Bash(./gradlew assembleDebug)",
+      "Bash(adb devices:*)",
+      "Bash(adb install:*)",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(./gradlew clean:*)",
+      "Bash(unzip -l \"D:/Rayhand/Android/York Cafe/app/build/outputs/apk/debug/app-debug.apk\")",
+      "Bash(aapt dump:*)",
+      "Bash(./gradlew --no-daemon assembleDebug)"
+    ]
+  }
+}

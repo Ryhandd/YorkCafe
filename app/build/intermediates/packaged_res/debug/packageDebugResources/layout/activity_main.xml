@@ -1,0 +1,3516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+    <!-- ========================================== -->
+    <!--            HOME PAGE (TAB 1)               -->
+    <!-- ========================================== -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/page_home"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/custom_bottom_nav">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- Header -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/header_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="16dp">
+
+                    <TextView
+                        android:id="@+id/app_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Yo, Yorkers!"
+                        android:textColor="@color/black"
+                        android:textSize="36sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/anton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" /> 
+                    
+                    <ImageView
+                        android:id="@+id/red_star_icon"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:src="@drawable/star"
+                        app:tint="@color/brand_red"
+                        android:contentDescription="Brand logo"
+                        android:layout_marginStart="-4dp"
+                        android:layout_marginTop="-8dp"
+                        app:layout_constraintTop_toTopOf="@+id/app_title"
+                        app:layout_constraintStart_toEndOf="@+id/app_title" />
+
+                    <!-- Join us! Button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_join_us"
+                        android:layout_width="wrap_content"
+                        android:layout_height="38dp"
+                        android:text="Join us!"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:paddingHorizontal="16dp"
+                        app:backgroundTint="@color/white"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:cornerRadius="0dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/app_title"
+                        app:layout_constraintBottom_toBottomOf="@+id/app_title" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Hero Section Container -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/hero_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp">
+
+                    <!-- Tilted Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/hero_image_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="220dp"
+                        app:cardCornerRadius="0dp"
+                        app:cardElevation="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <androidx.viewpager2.widget.ViewPager2
+                                android:id="@+id/hero_image_pager"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                            <TextView
+                                android:id="@+id/fueling_up_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="FUELING\nUP"
+                                android:textColor="@color/white"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/anton"
+                                android:gravity="center"
+                                android:background="@drawable/bg_fueling_up"
+                                android:paddingLeft="24dp"
+                                android:paddingRight="24dp"
+                                android:paddingTop="12dp"
+                                android:paddingBottom="12dp"
+                                android:letterSpacing="0.05"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Yellow Sticky Tape sticker -->
+                    <View
+                        android:id="@+id/sticky_tape"
+                        android:layout_width="64dp"
+                        android:layout_height="22dp"
+                        android:background="#FFE082" 
+                        android:elevation="4dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginTop="-10dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Category Filters -->
+                <LinearLayout
+                    android:id="@+id/category_filters_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="28dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_coffee_filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Coffee"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:paddingLeft="14dp"
+                        android:paddingRight="14dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        app:backgroundTint="@color/category_coffee_yellow"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:cornerRadius="0dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_non_coffee_filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Non-Coffee"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:paddingLeft="14dp"
+                        android:paddingRight="14dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:layout_marginStart="8dp"
+                        app:backgroundTint="@color/category_non_coffee_blue"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:cornerRadius="0dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_skate_goods_filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Skate Goods"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:paddingLeft="14dp"
+                        android:paddingRight="14dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:layout_marginStart="8dp"
+                        app:backgroundTint="@color/category_skate_goods_pink"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:cornerRadius="0dp" />
+
+                </LinearLayout>
+
+                <!-- Item 1: Polaroid-style Coffee Card (Fixed Vertical Flow to prevent Cutoff) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/polaroid_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="3dp"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="2.5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <!-- Photo Container with black border -->
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="220dp"
+                            android:background="@color/black">
+
+                            <ImageView
+                                android:id="@+id/coffee_pour_image"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="3dp"
+                                android:src="@drawable/york"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="Coffee dripping" />
+
+                            <!-- Price Tag sticker -->
+                            <TextView
+                                android:id="@+id/price_tag_house_drip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="32K"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/anton"
+                                android:background="@drawable/bg_price_sticker"
+                                android:paddingLeft="12dp"
+                                android:paddingRight="12dp"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:layout_gravity="bottom|end"
+                                android:layout_margin="12dp" />
+
+                        </FrameLayout>
+
+                        <!-- Title and Add Button Row -->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp">
+
+                            <TextView
+                                android:id="@+id/pol_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="BASQUE CHEESECAKE"
+                                android:textColor="@color/black"
+                                android:textSize="22sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/anton"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/pol_add_btn"
+                                android:layout_width="38dp"
+                                android:layout_height="38dp"
+                                android:text="+"
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:padding="0dp"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp"
+                                app:backgroundTint="#DDE1F8"
+                                app:strokeColor="@color/black"
+                                app:strokeWidth="1.5dp"
+                                app:cornerRadius="19dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerVertical="true" />
+
+                        </RelativeLayout>
+
+                        <!-- Description -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Basque style burnt cheesecake, creamy and rich."
+                            android:textColor="@color/grey_dark"
+                            android:textSize="13sp"
+                            android:layout_marginTop="6dp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Item 2: Oat Latte Horizontal Card -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/oat_latte_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginBottom="20dp">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/oat_latte_polaroid_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="12dp"
+                            android:gravity="center_vertical">
+
+                            <!-- Photo with black border -->
+                            <FrameLayout
+                                android:layout_width="140dp"
+                                android:layout_height="120dp"
+                                android:background="@color/black">
+
+                                <ImageView
+                                    android:id="@+id/oat_latte_home_image"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="2.5dp"
+                                    android:src="@drawable/b2"
+                                    android:scaleType="centerCrop"
+                                    android:contentDescription="Oat Latte" />
+
+                            </FrameLayout>
+
+                            <!-- Info on right -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginStart="16dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="OAT\nLATTE"
+                                    android:textColor="@color/black"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold"
+                                    android:fontFamily="@font/anton"
+                                    android:lineSpacingMultiplier="0.9" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="$6"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold"
+                                    android:fontFamily="@font/anton"
+                                    android:background="@drawable/bg_price_sticker_yellow"
+                                    android:paddingLeft="10dp"
+                                    android:paddingRight="10dp"
+                                    android:paddingTop="3dp"
+                                    android:paddingBottom="3dp"
+                                    android:layout_marginTop="6dp" />
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/oat_latte_home_add_button"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="38dp"
+                                    android:text="ADD"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"
+                                    android:textSize="13sp"
+                                    android:layout_marginTop="8dp"
+                                    android:insetTop="0dp"
+                                    android:insetBottom="0dp"
+                                    app:backgroundTint="@color/white"
+                                    app:strokeColor="@color/black"
+                                    app:strokeWidth="1.8dp"
+                                    app:cornerRadius="0dp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Blue smiley face sticker -->
+                    <ImageView
+                        android:id="@+id/smiley_sticker"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:src="@drawable/ic_smiley_blue"
+                        android:elevation="6dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="-6dp"
+                        android:layout_marginBottom="-12dp"
+                        android:contentDescription="Smiley face" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ========================================== -->
+    <!--            FOOD PAGE (TAB 2)               -->
+    <!-- ========================================== -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/page_food"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/custom_bottom_nav">
+
+        <!-- Title bar -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/food_title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/white"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/btn_menu_drawer"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_menu_bars"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:contentDescription="Menu" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="YORK CAFE"
+                android:textColor="@color/black"
+                android:textSize="26sp"
+                android:fontFamily="@font/anton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <!-- Shopping Bag with Badge -->
+            <FrameLayout
+                android:id="@+id/btn_header_cart"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_shopping_bag"
+                    android:contentDescription="Cart" />
+
+                <!-- Badge -->
+                <TextView
+                    android:id="@+id/txt_cart_badge"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="top|end"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:background="@drawable/bg_cart_badge"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:text="0"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+            <!-- Bottom divider line -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2.5dp"
+                android:background="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintTop_toBottomOf="@+id/food_title_bar"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- DRINKS SECTION (Sage Green) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/sage_green"
+                    android:padding="20dp">
+
+                    <!-- Heading Drinks -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="DRINKS"
+                            android:textColor="@color/white"
+                            android:textSize="26sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/anton"
+                            android:background="@drawable/bg_drinks_tag"
+                            android:paddingHorizontal="24dp"
+                            android:paddingVertical="10dp" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- House Favorite Label -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="HOUSE FAVORITE!!!"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/anton"
+                        android:background="@drawable/bg_price_sticker_yellow"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="6dp"
+                        android:layout_marginTop="16dp" />
+
+                    <!-- Staggered Polaroid Card Grid (drinks favorites) -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="320dp"
+                        android:layout_marginTop="16dp">
+
+                        <!-- Favorite 1: Kopi Susu Gula Aren -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/card_fav_1"
+                            android:layout_width="0dp"
+                            android:layout_height="220dp"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="0dp"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="2dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/guideline_mid"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginEnd="6dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="8dp">
+
+                                <FrameLayout
+                                    android:id="@+id/fav_img_container_1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="120dp"
+                                    android:background="@color/black"
+                                    app:layout_constraintTop_toTopOf="parent">
+                                    <ImageView
+                                        android:id="@+id/img_fav_1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_margin="1.5dp"
+                                        android:src="@drawable/b1"
+                                        android:scaleType="centerCrop" />
+                                </FrameLayout>
+
+                                <TextView
+                                    android:id="@+id/fav_title_1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Kopi Susu Gula Aren"
+                                    android:textColor="@color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:layout_marginTop="6dp"
+                                    app:layout_constraintTop_toBottomOf="@+id/fav_img_container_1" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="20K"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:background="@drawable/bg_black_sticker"
+                                    android:paddingHorizontal="6dp"
+                                    android:paddingVertical="3dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent" />
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btn_fav_add_1"
+                                    android:layout_width="28dp"
+                                    android:layout_height="28dp"
+                                    android:text="+"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"
+                                    android:padding="0dp"
+                                    android:insetTop="0dp"
+                                    android:insetBottom="0dp"
+                                    app:backgroundTint="@color/white"
+                                    app:strokeColor="@color/black"
+                                    app:strokeWidth="1dp"
+                                    app:cornerRadius="14dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Guideline Middle -->
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline_mid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.5" />
+
+                        <!-- Favorite 2: Mango Sugus -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/card_fav_2"
+                            android:layout_width="0dp"
+                            android:layout_height="140dp"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="0dp"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="2dp"
+                            app:layout_constraintStart_toEndOf="@+id/guideline_mid"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginStart="6dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="6dp">
+
+                                <FrameLayout
+                                    android:id="@+id/fav_img_container_2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="70dp"
+                                    android:background="@color/black"
+                                    app:layout_constraintTop_toTopOf="parent">
+                                    <ImageView
+                                        android:id="@+id/img_fav_2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_margin="1.5dp"
+                                        android:src="@drawable/b3"
+                                        android:scaleType="centerCrop" />
+                                </FrameLayout>
+
+                                <TextView
+                                    android:id="@+id/fav_title_2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Mango Sugus"
+                                    android:textColor="@color/black"
+                                    android:textSize="11sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintTop_toBottomOf="@+id/fav_img_container_2" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="25K"
+                                    android:textColor="@color/white"
+                                    android:textSize="11sp"
+                                    android:textStyle="bold"
+                                    android:background="@drawable/bg_black_sticker"
+                                    android:paddingHorizontal="6dp"
+                                    android:paddingVertical="2dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent" />
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btn_fav_add_2"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:text="+"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"
+                                    android:padding="0dp"
+                                    android:insetTop="0dp"
+                                    android:insetBottom="0dp"
+                                    app:backgroundTint="@color/white"
+                                    app:strokeColor="@color/black"
+                                    app:strokeWidth="1dp"
+                                    app:cornerRadius="12dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Favorite 3: Avocado Coffee -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/card_fav_3"
+                            android:layout_width="0dp"
+                            android:layout_height="140dp"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="0dp"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="2dp"
+                            app:layout_constraintStart_toEndOf="@+id/guideline_mid"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/card_fav_2"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginTop="8dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="6dp">
+
+                                <FrameLayout
+                                    android:id="@+id/fav_img_container_3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="70dp"
+                                    android:background="@color/black"
+                                    app:layout_constraintTop_toTopOf="parent">
+                                    <ImageView
+                                        android:id="@+id/img_fav_3"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_margin="1.5dp"
+                                        android:src="@drawable/b1"
+                                        android:scaleType="centerCrop" />
+                                </FrameLayout>
+
+                                <TextView
+                                    android:id="@+id/fav_title_3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Avocado Coffee"
+                                    android:textColor="@color/black"
+                                    android:textSize="11sp"
+                                    android:textStyle="bold"
+                                    app:layout_constraintTop_toBottomOf="@+id/fav_img_container_3" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="35K"
+                                    android:textColor="@color/white"
+                                    android:textSize="11sp"
+                                    android:textStyle="bold"
+                                    android:background="@drawable/bg_black_sticker"
+                                    android:paddingHorizontal="6dp"
+                                    android:paddingVertical="2dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent" />
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btn_fav_add_3"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:text="+"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"
+                                    android:padding="0dp"
+                                    android:insetTop="0dp"
+                                    android:insetBottom="0dp"
+                                    app:backgroundTint="@color/white"
+                                    app:strokeColor="@color/black"
+                                    app:strokeWidth="1dp"
+                                    app:cornerRadius="12dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- Section Divider COFFEE -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="COFFEE"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/anton"
+                        android:layout_marginTop="24dp" />
+                    <View
+                        android:layout_width="80dp"
+                        android:layout_height="3.5dp"
+                        android:background="@color/black"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <!-- Coffee List Rows -->
+                    <LinearLayout
+                        android:id="@+id/list_coffee"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                    <!-- Section Divider ANTI-COFFEE -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ANTI - COFFEE"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/anton"
+                        android:layout_marginTop="24dp" />
+                    <View
+                        android:layout_width="120dp"
+                        android:layout_height="3.5dp"
+                        android:background="@color/black"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <!-- Anti-Coffee List Rows -->
+                    <LinearLayout
+                        android:id="@+id/list_anti_coffee"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                    <!-- Section Divider SPILL THE TEA -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SPILL THE TEA"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/anton"
+                        android:layout_marginTop="24dp" />
+                    <View
+                        android:layout_width="120dp"
+                        android:layout_height="3.5dp"
+                        android:background="@color/black"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <!-- Spill The Tea List Rows -->
+                    <LinearLayout
+                        android:id="@+id/list_spill_tea"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                    <!-- Section Divider JUST IN CASE -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="JUST IN CASE"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/anton"
+                        android:layout_marginTop="24dp" />
+                    <View
+                        android:layout_width="110dp"
+                        android:layout_height="3.5dp"
+                        android:background="@color/black"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <!-- Just In Case List Rows -->
+                    <LinearLayout
+                        android:id="@+id/list_just_case"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                    <!-- Section Divider MILK OPTION -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MILK OPTION"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/anton"
+                        android:layout_marginTop="24dp" />
+                    <View
+                        android:layout_width="100dp"
+                        android:layout_height="3.5dp"
+                        android:background="@color/black"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <!-- Milk Option List Rows -->
+                    <LinearLayout
+                        android:id="@+id/list_milk_option"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                </LinearLayout>
+
+                <!-- FOOD SECTION (Rose Pink) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/rose_pink"
+                    android:padding="20dp">
+
+                    <!-- Heading Food -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="FOOD"
+                            android:textColor="@color/white"
+                            android:textSize="26sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/anton"
+                            android:background="@drawable/bg_drinks_tag"
+                            android:paddingHorizontal="24dp"
+                            android:paddingVertical="10dp" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Main Label -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MAIN"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/anton"
+                        android:background="@drawable/bg_black_sticker"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="6dp"
+                        android:layout_marginTop="16dp" />
+
+                    <!-- Main Food Polaroid Card 1 -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/food_main_card_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="12dp">
+
+                            <FrameLayout
+                                android:id="@+id/food_main_img_container_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="130dp"
+                                android:background="@color/black"
+                                app:layout_constraintTop_toTopOf="parent">
+                                <ImageView
+                                    android:id="@+id/img_food_main_1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="2dp"
+                                    android:src="@drawable/b1"
+                                    android:scaleType="centerCrop"
+                                    android:contentDescription="MBG" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/food_main_title_1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="MBG - Makan Budget Gokil"
+                                android:textColor="@color/black"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="8dp"
+                                app:layout_constraintEnd_toStartOf="@+id/btn_food_main_add_1"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/food_main_img_container_1"
+                                android:layout_marginEnd="12dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="18K"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:background="@drawable/bg_black_sticker"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="4dp"
+                                android:layout_marginTop="4dp"
+                                app:layout_constraintTop_toBottomOf="@+id/food_main_title_1"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_food_main_add_1"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:text="+"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:padding="0dp"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp"
+                                app:backgroundTint="@color/white"
+                                app:strokeColor="@color/black"
+                                app:strokeWidth="1.2dp"
+                                app:cornerRadius="16dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Main Food Polaroid Card 2 -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/food_main_card_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="12dp">
+
+                            <FrameLayout
+                                android:id="@+id/food_main_img_container_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="130dp"
+                                android:background="@color/black"
+                                app:layout_constraintTop_toTopOf="parent">
+                                
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="2dp"
+                                    android:background="#E0E0E0">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="X"
+                                        android:textColor="#9E9E9E"
+                                        android:textSize="44sp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/food_main_title_2"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Nasi Cakalang + telur"
+                                android:textColor="@color/black"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="8dp"
+                                app:layout_constraintEnd_toStartOf="@+id/btn_food_main_add_2"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/food_main_img_container_2"
+                                android:layout_marginEnd="12dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="20K"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:background="@drawable/bg_black_sticker"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="4dp"
+                                android:layout_marginTop="4dp"
+                                app:layout_constraintTop_toBottomOf="@+id/food_main_title_2"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_food_main_add_2"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:text="+"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:padding="0dp"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp"
+                                app:backgroundTint="@color/white"
+                                app:strokeColor="@color/black"
+                                app:strokeWidth="1.2dp"
+                                app:cornerRadius="16dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Main Food Polaroid Card 3 -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/food_main_card_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="12dp">
+
+                            <FrameLayout
+                                android:id="@+id/food_main_img_container_3"
+                                android:layout_width="match_parent"
+                                android:layout_height="130dp"
+                                android:background="@color/black"
+                                app:layout_constraintTop_toTopOf="parent">
+                                
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="2dp"
+                                    android:background="#E0E0E0">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="X"
+                                        android:textColor="#9E9E9E"
+                                        android:textSize="44sp"
+                                        android:textStyle="bold"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/food_main_title_3"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:text="Nasi Karage Sambal Matah + telur"
+                                android:textColor="@color/black"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="8dp"
+                                app:layout_constraintEnd_toStartOf="@+id/btn_food_main_add_3"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/food_main_img_container_3"
+                                android:layout_marginEnd="12dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="35K"
+                                android:textColor="@color/white"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:background="@drawable/bg_black_sticker"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="4dp"
+                                android:layout_marginTop="4dp"
+                                app:layout_constraintTop_toBottomOf="@+id/food_main_title_3"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_food_main_add_3"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:text="+"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:padding="0dp"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp"
+                                app:backgroundTint="@color/white"
+                                app:strokeColor="@color/black"
+                                app:strokeWidth="1.2dp"
+                                app:cornerRadius="16dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Section Divider BITES -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BITES"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/anton"
+                        android:layout_marginTop="24dp" />
+                    <View
+                        android:layout_width="60dp"
+                        android:layout_height="3.5dp"
+                        android:background="@color/black"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="12dp"/>
+
+                    <!-- Bites 2-column list container -->
+                    <LinearLayout
+                        android:id="@+id/grid_bites"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="24dp" />
+
+                    <!-- Section Divider INDOMIE -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="INDOMIE"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/anton"
+                        android:layout_marginTop="24dp" />
+                    <View
+                        android:layout_width="80dp"
+                        android:layout_height="3.5dp"
+                        android:background="@color/black"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="12dp"/>
+
+                    <!-- Indomie 2-column grid container -->
+                    <LinearLayout
+                        android:id="@+id/grid_indomie"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="24dp" />
+
+                    <!-- Section Divider MORE -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MORE"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/anton"
+                        android:layout_marginTop="24dp" />
+                    <View
+                        android:layout_width="60dp"
+                        android:layout_height="3.5dp"
+                        android:background="@color/black"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="12dp"/>
+
+                    <!-- More 2-column grid container -->
+                    <LinearLayout
+                        android:id="@+id/grid_more"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="24dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ========================================== -->
+    <!--            CART PAGE (TAB 3)               -->
+    <!-- ========================================== -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/page_cart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/custom_bottom_nav">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp">
+
+                <!-- Header -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cart_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="16dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your Stash!"
+                        android:textColor="@color/black"
+                        android:textSize="36sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/anton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Empty state container -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_empty_cart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toBottomOf="@+id/cart_header">
+
+                    <!-- Outer Grey Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_empty_graphic_outer"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        app:cardBackgroundColor="#E6E6E6"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <!-- Left Red Arrow -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="←"
+                                android:textColor="@color/brand_red"
+                                android:textSize="32sp"
+                                android:textStyle="bold"
+                                android:layout_marginStart="24dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <!-- Center White Card -->
+                            <com.google.android.material.card.MaterialCardView
+                                android:id="@+id/card_empty_gauge_container"
+                                android:layout_width="100dp"
+                                android:layout_height="100dp"
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="0dp"
+                                app:strokeColor="@color/black"
+                                app:strokeWidth="2.5dp"
+                                app:cardElevation="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <!-- Fuel Gauge Pill -->
+                                    <View
+                                        android:layout_width="22dp"
+                                        android:layout_height="52dp"
+                                        android:background="@drawable/bg_fuel_gauge"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Tilted OUT OF FUEL Sticker -->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:cardBackgroundColor="#DDE1F8"
+                                app:cardCornerRadius="0dp"
+                                app:strokeColor="@color/black"
+                                app:strokeWidth="2dp"
+                                app:cardElevation="8dp"
+                                app:layout_constraintBottom_toBottomOf="@+id/card_empty_gauge_container"
+                                app:layout_constraintEnd_toEndOf="@+id/card_empty_gauge_container"
+                                app:layout_constraintStart_toStartOf="@+id/card_empty_gauge_container"
+                                app:layout_constraintTop_toTopOf="@+id/card_empty_gauge_container">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="OUT OF FUEL"
+                                    android:textColor="@color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:fontFamily="@font/anton"
+                                    android:paddingHorizontal="10dp"
+                                    android:paddingVertical="4dp" />
+
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <!-- Right Red Arrow -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="→"
+                                android:textColor="@color/brand_red"
+                                android:textSize="32sp"
+                                android:textStyle="bold"
+                                android:layout_marginEnd="24dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Text Message Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_empty_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintTop_toBottomOf="@+id/card_empty_graphic_outer">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="YOUR TANK IS EMPTY"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:fontFamily="@font/anton" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Looks like you haven't added anything to your cart yet. Time to refuel."
+                                android:textColor="@color/grey_dark"
+                                android:textSize="13sp"
+                                android:layout_marginTop="6dp" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Neo-brutalism FILL IT UP Button -->
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@+id/card_empty_text">
+
+                        <!-- Shadow view -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginStart="4dp"
+                            android:background="@color/black" />
+
+                        <!-- Button Fore -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_empty_cart_refuel"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:text="FILL IT UP"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/anton"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            app:backgroundTint="@color/white"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="2.5dp"
+                            app:cornerRadius="0dp" />
+
+                    </FrameLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Active cart container -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_active_cart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/cart_header">
+
+                    <!-- Cart items list container -->
+                    <LinearLayout
+                        android:id="@+id/cart_items_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!-- Dine In or Takeaway Option Card (Table / Takeaway) -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_order_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:layout_constraintTop_toBottomOf="@+id/cart_items_list">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="ORDER TYPE * (REQUIRED)"
+                                android:textColor="@color/black"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/anton" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="12dp">
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btn_type_dine_in"
+                                    android:layout_width="0dp"
+                                    android:layout_height="46dp"
+                                    android:layout_weight="1"
+                                    android:text="DINE IN"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"
+                                    android:insetTop="0dp"
+                                    android:insetBottom="0dp"
+                                    app:backgroundTint="@color/white"
+                                    app:strokeColor="@color/black"
+                                    app:strokeWidth="1.8dp"
+                                    app:cornerRadius="0dp" />
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btn_type_takeaway"
+                                    android:layout_width="0dp"
+                                    android:layout_height="46dp"
+                                    android:layout_weight="1"
+                                    android:text="TAKEAWAY"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"
+                                    android:insetTop="0dp"
+                                    android:insetBottom="0dp"
+                                    android:layout_marginStart="12dp"
+                                    app:backgroundTint="@color/white"
+                                    app:strokeColor="@color/black"
+                                    app:strokeWidth="1.8dp"
+                                    app:cornerRadius="0dp" />
+
+                            </LinearLayout>
+
+                            <!-- Table Input Field -->
+                            <LinearLayout
+                                android:id="@+id/layout_table_input"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginTop="12dp"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="TABLE NUMBER *"
+                                    android:textColor="@color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+
+                                <EditText
+                                    android:id="@+id/input_table_number"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="46dp"
+                                    android:layout_marginTop="6dp"
+                                    android:background="@drawable/bg_price_sticker"
+                                    android:hint="Enter table number (e.g. 5)"
+                                    android:inputType="number"
+                                    android:textColor="@color/black"
+                                    android:textCursorDrawable="@null"
+                                    android:paddingHorizontal="12dp"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Total Price Box -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/total_price_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:cardBackgroundColor="@color/category_coffee_yellow"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:layout_constraintTop_toBottomOf="@+id/card_order_type">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="TOTAL STASH:"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/anton"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <TextView
+                                android:id="@+id/txt_cart_total"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0K"
+                                android:textColor="@color/black"
+                                android:textSize="24sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/anton"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Checkout Button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_checkout"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="CHECKOUT NOW!"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/category_skate_goods_pink"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:cornerRadius="0dp"
+                        app:layout_constraintTop_toBottomOf="@+id/total_price_card"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ========================================== -->
+    <!--            PROFILE PAGE (TAB 4)            -->
+    <!-- ========================================== -->
+    <!-- ========================================== -->
+    <!--            PROFILE PAGE (TAB 4)            -->
+    <!-- ========================================== -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/page_profile"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/custom_bottom_nav">
+
+        <!-- Header -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/profile_header_bar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/white"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/profile_menu_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_menu_bars"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="YORK CAFE"
+                android:textColor="@color/black"
+                android:textSize="26sp"
+                android:fontFamily="@font/anton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <FrameLayout
+                android:id="@+id/profile_cart_bag"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_shopping_bag" />
+
+            </FrameLayout>
+
+            <!-- Bottom divider line -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2.5dp"
+                android:background="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintTop_toBottomOf="@+id/profile_header_bar"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/profile_graphics_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp">
+
+                    <!-- Background large X symbol -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="✕"
+                        android:textColor="#F5DDDD"
+                        android:textSize="110sp"
+                        android:textStyle="bold"
+                        android:rotation="-15"
+                        android:layout_marginStart="-10dp"
+                        android:layout_marginTop="30dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!-- Background large $ symbol -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$"
+                        android:textColor="#EAEAEA"
+                        android:textSize="130sp"
+                        android:rotation="12"
+                        android:layout_marginEnd="0dp"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!-- Avatar Centerpiece -->
+                    <FrameLayout
+                        android:id="@+id/avatar_centerpiece"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <!-- Main circle avatar (black with silhouette) -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:layout_gravity="center"
+                            app:cardCornerRadius="55dp"
+                            app:cardBackgroundColor="@color/black"
+                            app:strokeWidth="0dp"
+                            app:cardElevation="0dp">
+
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_profile_placeholder"
+                                android:contentDescription="Avatar" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Blue Guest Sticker -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top|end"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="4dp"
+                            app:cardCornerRadius="0dp"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="2dp"
+                            app:cardElevation="2dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="GUEST"
+                                android:textColor="@color/black"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:background="@drawable/bg_guest_sticker"
+                                android:paddingHorizontal="10dp"
+                                android:paddingVertical="4dp" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Pink Lightning Sticker -->
+                        <FrameLayout
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:layout_gravity="bottom|start"
+                            android:layout_marginBottom="8dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/bg_lightning_badge">
+                            <ImageView
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_lightning" />
+                        </FrameLayout>
+
+                    </FrameLayout>
+
+                    <!-- Yorkers Box -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/box_yorkers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintTop_toBottomOf="@+id/avatar_centerpiece"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+                        
+                        <TextView
+                            android:id="@+id/txt_profile_username"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Yorkers"
+                            android:textColor="@color/black"
+                            android:textSize="22sp"
+                            android:fontFamily="@font/anton"
+                            android:background="@color/white"
+                            android:paddingHorizontal="24dp"
+                            android:paddingVertical="4dp" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Subtitle -->
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Welcome to York Cafe! Let's check out our today's specials below!"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginHorizontal="40dp"
+                        app:layout_constraintTop_toBottomOf="@+id/box_yorkers"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Menu List Options -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="8dp">
+
+                    <!-- Past Orders Button -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_past_orders"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:cardElevation="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="14dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_receipt" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="14dp"
+                                android:text="PAST ORDERS"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/anton" />
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_arrow_right" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Saved Vibes Button -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_saved_vibes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:cardElevation="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="14dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_heart_solid" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="14dp"
+                                android:text="SAVED VIBES"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/anton" />
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_arrow_right" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Payment Methods Button -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_payment_methods"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:cardElevation="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="14dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_credit_card" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="14dp"
+                                android:text="PAYMENT METHODS"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/anton" />
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_arrow_right" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Settings Button -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:cardElevation="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="14dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_settings" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="14dp"
+                                android:text="SETTINGS"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:fontFamily="@font/anton" />
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_arrow_right" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ======================================================= -->
+    <!--            OVERLAY PAGE: DETAIL VIEW                    -->
+    <!-- ======================================================= -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/page_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:visibility="gone"
+        android:elevation="20dp">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/detail_bottom_bar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Product Big Image Header -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="360dp">
+
+                    <ImageView
+                        android:id="@+id/img_detail_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/b1" />
+
+                    <!-- Back Button Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_detail_back"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_margin="16dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_arrow_right" 
+                            android:rotation="180" 
+                            android:contentDescription="Back" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Save Star Button -->
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_star_outline"
+                        android:layout_margin="16dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <!-- Best Seller tag -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BEST SELLER"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/bg_price_sticker_yellow"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp"
+                        android:layout_margin="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Zigzag/Tear visual divider (styled with thin grey line) -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/black" />
+
+                <!-- Product details container -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/txt_detail_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MANGO SUGUS"
+                        android:textColor="@color/black"
+                        android:textSize="32sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/anton" />
+
+                    <TextView
+                        android:id="@+id/txt_detail_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Steeped for 24 hours. Infused with nitrogen. Served straight up. No apologies."
+                        android:textColor="@color/grey_dark"
+                        android:textSize="14sp"
+                        android:layout_marginTop="8dp" />
+
+                    <TextView
+                        android:id="@+id/txt_detail_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="25K"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/anton"
+                        android:layout_marginTop="12dp" />
+
+                    <!-- PORTION Selection (for Indomie) -->
+                    <TextView
+                        android:id="@+id/txt_portion_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PORTION"
+                        android:textColor="@color/grey_dark"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="20dp"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_portion_buttons"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:visibility="gone">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_portion_single"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="SINGLE"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            app:backgroundTint="@color/black"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="2dp"
+                            app:cornerRadius="0dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_portion_double"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="DOUBLE (+7K)"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:layout_marginStart="8dp"
+                            app:backgroundTint="@color/white"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="2dp"
+                            app:cornerRadius="0dp" />
+
+                    </LinearLayout>
+
+                    <!-- SIZE Selection -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SIZE"
+                        android:textColor="@color/grey_dark"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="20dp"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:visibility="gone">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_size_s"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="S"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            app:backgroundTint="@color/white"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="2dp"
+                            app:cornerRadius="0dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_size_m"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="M"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:layout_marginStart="8dp"
+                            app:backgroundTint="@color/black"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="2dp"
+                            app:cornerRadius="0dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_size_l"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="L"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:layout_marginStart="8dp"
+                            app:backgroundTint="@color/white"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="2dp"
+                            app:cornerRadius="0dp" />
+
+                    </LinearLayout>
+
+                    <!-- TEMP Selection -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TEMP"
+                        android:textColor="@color/grey_dark"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="20dp"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="24dp"
+                        android:visibility="gone">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_temp_iced"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="ICED"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            app:backgroundTint="#DDE1F8"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="2dp"
+                            app:cornerRadius="0dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_temp_hot"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="HOT"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:layout_marginStart="8dp"
+                            app:backgroundTint="@color/white"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="2dp"
+                            app:cornerRadius="0dp" />
+
+                    </LinearLayout>
+
+                    <!-- ORDER TYPE Selection (Commented Out)
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ORDER TYPE"
+                        android:textColor="@color/grey_dark"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="12dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="24dp">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_detail_type_dine_in"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="DINE IN"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            app:backgroundTint="#DDE1F8"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="2dp"
+                            app:cornerRadius="0dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_detail_type_takeaway"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:text="TAKEAWAY"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:layout_marginStart="8dp"
+                            app:backgroundTint="@color/white"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="2dp"
+                            app:cornerRadius="0dp" />
+
+                    </LinearLayout>
+                    -->
+
+                    <!-- RATINGS & REVIEWS Section -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="RATINGS &amp; REVIEWS"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/anton"
+                        android:layout_marginTop="20dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="10dp">
+
+                        <ImageView
+                            android:id="@+id/star_1"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_star_outline"
+                            android:tint="#888888"
+                            android:contentDescription="1 Star"
+                            android:layout_marginEnd="4dp" />
+
+                        <ImageView
+                            android:id="@+id/star_2"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_star_outline"
+                            android:tint="#888888"
+                            android:contentDescription="2 Stars"
+                            android:layout_marginEnd="4dp" />
+
+                        <ImageView
+                            android:id="@+id/star_3"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_star_outline"
+                            android:tint="#888888"
+                            android:contentDescription="3 Stars"
+                            android:layout_marginEnd="4dp" />
+
+                        <ImageView
+                            android:id="@+id/star_4"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_star_outline"
+                            android:tint="#888888"
+                            android:contentDescription="4 Stars"
+                            android:layout_marginEnd="4dp" />
+
+                        <ImageView
+                            android:id="@+id/star_5"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_star_outline"
+                            android:tint="#888888"
+                            android:contentDescription="5 Stars" />
+
+                        <TextView
+                            android:id="@+id/txt_selected_rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="(0/5)"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:layout_marginStart="12dp" />
+
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/input_detail_comment"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_price_sticker"
+                        android:hint="LEAVE A COMMENT..."
+                        android:textColorHint="#888888"
+                        android:textColor="@color/black"
+                        android:gravity="top|start"
+                        android:padding="12dp"
+                        android:textSize="14sp"
+                        android:inputType="textMultiLine" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_submit_review"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="12dp"
+                        android:text="SUBMIT REVIEW"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:fontFamily="@font/anton"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        app:backgroundTint="#FFEE58"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2dp"
+                        app:cornerRadius="0dp" />
+
+                    <!-- Submitted reviews title -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PAST VIBES &amp; REVIEWS"
+                        android:textColor="@color/grey_dark"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="20dp" />
+
+                    <!-- Submitted reviews container -->
+                    <LinearLayout
+                        android:id="@+id/layout_reviews_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="20dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- Bottom Add Yellow Bar -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/detail_bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:background="@color/category_coffee_yellow"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/black"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_detail_grab"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="20dp"
+                android:text="+ GRAB IT"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                app:backgroundTint="@color/black"
+                app:strokeColor="@color/black"
+                app:strokeWidth="2dp"
+                app:cornerRadius="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ======================================================= -->
+    <!--            OVERLAY PAGE: CHECKOUT PAGE                  -->
+    <!-- ======================================================= -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/page_checkout_flow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F5F5F5"
+        android:visibility="gone"
+        android:elevation="21dp">
+
+        <!-- Title bar -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/checkout_title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/white">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btn_checkout_close"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="0dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="1.5dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="X"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_gravity="center" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CHECKOUT"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/anton"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Main Content -->
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintTop_toBottomOf="@+id/checkout_title_bar"
+            app:layout_constraintBottom_toTopOf="@+id/checkout_bottom_bar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- Receipt Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:rotation="0"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="0dp"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp"
+                        android:gravity="center_horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="*** YORK CAFE ***"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txt_checkout_receipt_order_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ORDER #105"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="4dp" />
+
+                        <!-- Dashed divider -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@drawable/dotted_line"
+                            android:layout_marginVertical="12dp" />
+
+                        <!-- List of receipt items -->
+                        <LinearLayout
+                            android:id="@+id/checkout_items_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
+
+                        <!-- Dashed divider -->
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@drawable/dotted_line"
+                            android:layout_marginVertical="12dp" />
+
+                        <!-- Subtotal row -->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="SUBTOTAL"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/txt_checkout_subtotal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="25K"
+                                android:textColor="@color/black"
+                                android:layout_alignParentEnd="true"/>
+                        </RelativeLayout>
+
+                        <!-- Order type row -->
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="METHOD"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/txt_checkout_method"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="DINE IN (TABLE 5)"
+                                android:textColor="@color/black"
+                                android:layout_alignParentEnd="true"/>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Payment Title -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PAYMENT"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/anton"
+                    android:background="@drawable/bg_black_sticker"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
+                    android:layout_marginTop="28dp" />
+
+                <!-- Payment Options Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp">
+
+                    <!-- E-Pay option -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_pay_epay"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="#DDE1F8"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:src="@drawable/ic_nav_profile" /> 
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="E-PAY"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:layout_marginTop="6dp" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- QR Scan Option -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_pay_qr"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="16dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="0dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:src="@drawable/ic_nav_menu" /> 
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="QR SCAN"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:layout_marginTop="6dp" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+                <!-- Giant Total Price section -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TOTAL"
+                        android:textColor="@color/grey_dark"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:layout_alignParentEnd="true" />
+
+                    <TextView
+                        android:id="@+id/txt_checkout_giant_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="25K"
+                        android:textColor="@color/black"
+                        android:textSize="54sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/anton"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="16dp" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <!-- Bottom Proceed Button -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/checkout_bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="84dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2.5dp"
+                android:background="@color/black"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_checkout_proceed"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginHorizontal="20dp"
+                android:text="PROCEED TO PAY ➔"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                app:backgroundTint="@color/category_coffee_yellow"
+                app:strokeColor="@color/black"
+                app:strokeWidth="2dp"
+                app:cornerRadius="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ======================================================= -->
+    <!--            OVERLAY PAGE: ORDER SECURED                  -->
+    <!-- ======================================================= -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/page_secured"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:visibility="gone"
+        android:elevation="25dp"
+        android:padding="24dp">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/secured_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ORDER SECURED"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/anton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="40dp" />
+
+        <!-- Checkmark circle -->
+        <FrameLayout
+            android:id="@+id/checkmark_circle"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            app:layout_constraintTop_toBottomOf="@+id/secured_title"
+            app:layout_constraintBottom_toTopOf="@+id/card_secured_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_checkmark_circle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✓"
+                android:textColor="@color/white"
+                android:textSize="72dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="-4dp" />
+
+        </FrameLayout>
+
+        <!-- Order Info Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_secured_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/black"
+            app:cardCornerRadius="0dp"
+            app:strokeColor="@color/white"
+            app:strokeWidth="2.5dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_secured_track"
+            android:layout_marginBottom="40dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <!-- Header Order No -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ORDER #"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="15sp" />
+                    <TextView
+                        android:id="@+id/txt_secured_order_no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="YC-9984"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/anton"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/white"
+                    android:layout_marginVertical="12dp" />
+
+                <!-- Total Paid -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TOTAL PAID"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+                    <TextView
+                        android:id="@+id/txt_secured_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="25K"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
+
+                <!-- Est Pickup -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="EST. PICKUP"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15 MINS"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
+
+                <!-- Method -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="METHOD"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+                    <TextView
+                        android:id="@+id/txt_secured_method"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DINE IN"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Track My Vibe Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_secured_track"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="TRACK MY VIBE ➔"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            app:backgroundTint="@color/category_coffee_yellow"
+            app:strokeColor="@color/white"
+            app:strokeWidth="1.5dp"
+            app:cornerRadius="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_secured_home"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Return to Home -->
+        <TextView
+            android:id="@+id/btn_secured_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Return to home"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="24dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ======================================================= -->
+    <!--            OVERLAY PAGE: TRANSACTION CRASHED            -->
+    <!-- ======================================================= -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/page_crashed"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:visibility="gone"
+        android:elevation="25dp"
+        android:padding="24dp">
+
+        <!-- Crashed Stamp -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_crashed_stamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/brand_red"
+            app:cardCornerRadius="0dp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="40dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TRANSACTION\nCRASHED"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/anton"
+                android:gravity="center"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Red X circle -->
+        <FrameLayout
+            android:id="@+id/crashed_circle"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            app:layout_constraintTop_toBottomOf="@+id/card_crashed_stamp"
+            app:layout_constraintBottom_toTopOf="@+id/card_crashed_notepad"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_crashed_circle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✕"
+                android:textColor="@color/brand_red"
+                android:textSize="72dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="-6dp" />
+
+        </FrameLayout>
+
+        <!-- Notepad Failure Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_crashed_notepad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/black"
+            app:cardCornerRadius="0dp"
+            app:strokeColor="@color/black"
+            app:strokeWidth="2.5dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_crashed_retry"
+            android:layout_marginBottom="40dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SYSTEM FAILURE"
+                    android:textColor="#E0E0E0"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/anton" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="&gt; root/payments/process.exe\n&gt; fatal error: insufficient funds or network timeout.\n&gt; the connection was severed.\n&gt; please check your pocket lint and try again."
+                    android:textColor="#E0E0E0"
+                    android:textSize="13sp"
+                    android:layout_marginTop="12dp"
+                    android:lineSpacingMultiplier="1.2" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Retry Button container with a PLZ sticker -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_crashed_retry_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/btn_crashed_abort"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_crashed_retry"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="⟳ TRY AGAIN"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                app:backgroundTint="#E0E0E0"
+                app:strokeColor="@color/black"
+                app:strokeWidth="2dp"
+                app:cornerRadius="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PLZ"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:background="@drawable/bg_black_sticker"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="-4dp"
+                android:layout_marginBottom="-4dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Abort Mission -->
+        <TextView
+            android:id="@+id/btn_crashed_abort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ABORT MISSION"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="24dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ========================================== -->
+    <!--            CUSTOM BOTTOM NAV BAR           -->
+    <!-- ========================================== -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/custom_bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2.5dp"
+            android:background="@color/black"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Home Button Container -->
+        <FrameLayout
+            android:id="@+id/btn_nav_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_nav_menu"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/img_nav_home"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:background="@drawable/bg_active_nav"
+                android:src="@drawable/ic_nav_home"
+                app:tint="@color/black"
+                android:contentDescription="Home tab" />
+        </FrameLayout>
+
+        <!-- Menu/Food Button Container -->
+        <FrameLayout
+            android:id="@+id/btn_nav_menu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/btn_nav_home"
+            app:layout_constraintEnd_toStartOf="@+id/btn_nav_cart"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/img_nav_menu"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:src="@drawable/ic_nav_menu"
+                app:tint="@color/black"
+                android:contentDescription="Menu tab" />
+        </FrameLayout>
+
+        <!-- Cart Button Container -->
+        <FrameLayout
+            android:id="@+id/btn_nav_cart"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/btn_nav_menu"
+            app:layout_constraintEnd_toStartOf="@+id/btn_nav_profile"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/img_nav_cart"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:src="@drawable/ic_nav_cart"
+                app:tint="@color/black"
+                android:contentDescription="Cart tab" />
+        </FrameLayout>
+
+        <!-- Profile Button Container -->
+        <FrameLayout
+            android:id="@+id/btn_nav_profile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/btn_nav_cart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/img_nav_profile"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:src="@drawable/ic_nav_profile"
+                app:tint="@color/black"
+                android:contentDescription="Profile tab" />
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

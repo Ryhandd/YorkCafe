@@ -1,0 +1,266 @@
+[
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_lightning.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_lightning.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_bg_crashed_circle.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\bg_crashed_circle.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_bg_fueling_up.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\bg_fueling_up.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_smiley_blue.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_smiley_blue.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_york.png.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\york.png"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_bg_checkmark_circle.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\bg_checkmark_circle.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_nav_menu.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_nav_menu.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_profile_placeholder.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_profile_placeholder.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_nav_profile.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_nav_profile.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_bg_lightning_badge.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\bg_lightning_badge.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_bg_fuel_gauge.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\bg_fuel_gauge.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_shopping_bag.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_shopping_bag.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_star1.png.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\star1.png"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\layout_activity_login.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_bg_cart_badge.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\bg_cart_badge.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_b1.jpg.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\b1.jpg"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_star.png.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\star.png"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_avocado_coffee.png.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\avocado_coffee.png"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_star_outline.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_star_outline.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_heart_outline.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_heart_outline.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_bg_price_sticker.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\bg_price_sticker.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_arrow_right.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_arrow_right.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_splash.png.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\splash.png"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\font_anton.ttf.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\font\\anton.ttf"
+    },
+    {
+        "merged": "com.yorkcafe.app-debug-30:/layout_activity_main.xml.flat",
+        "source": "com.yorkcafe.app-main-32:/layout/activity_main.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_bg_price_sticker_yellow.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\bg_price_sticker_yellow.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_nav_home.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_nav_home.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_heart_solid.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_heart_solid.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_logo.png.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\logo.png"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_bg_splash.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\bg_splash.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_bg_black_sticker.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\bg_black_sticker.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_b2.jpg.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\b2.jpg"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_credit_card.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_credit_card.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_bg_drinks_tag.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\bg_drinks_tag.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_bg_active_nav.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\bg_active_nav.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_settings.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_settings.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\menu_menu_bottom_nav.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\menu\\menu_bottom_nav.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_receipt.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_receipt.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_nav_cart.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_nav_cart.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_mango_sugus.png.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\mango_sugus.png"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\xml_data_extraction_rules.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_dotted_line.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\dotted_line.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\layout_activity_signup.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\layout\\activity_signup.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_bg_guest_sticker.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\bg_guest_sticker.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\xml_backup_rules.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_menu_bars.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_menu_bars.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\layout_activity_splash.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\layout\\activity_splash.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_placeholder.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_placeholder.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_mbg.png.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\mbg.png"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\layout_activity_main.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_ic_launcher_background.xml.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_b3.jpg.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\b3.jpg"
+    },
+    {
+        "merged": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-debug-30:\\drawable_heart1.png.flat",
+        "source": "D:\\Gradle_Cache\\daemon\\9.1.0\\com.yorkcafe.app-main-32:\\drawable\\heart1.png"
+    }
+]

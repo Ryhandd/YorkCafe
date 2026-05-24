@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    tools:context=".LoginActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp">
+
+            <!-- Outer Black Frame Container -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_graphic_frame"
+                android:layout_width="280dp"
+                android:layout_height="280dp"
+                android:layout_marginTop="32dp"
+                app:cardBackgroundColor="#2C2C2C"
+                app:cardCornerRadius="0dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="3dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <!-- Inner Skateboarder Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_skateboarder"
+                        android:layout_width="120dp"
+                        android:layout_height="180dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="12dp"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="2.5dp"
+                        app:cardElevation="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/logo"
+                            android:scaleType="centerInside"
+                            android:padding="12dp"
+                            android:contentDescription="York Skateboarder" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Tilted York Sticker -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_york_sticker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="0dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="2.5dp"
+                app:cardElevation="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/card_graphic_frame"
+                app:layout_constraintEnd_toEndOf="@+id/card_graphic_frame"
+                android:layout_marginEnd="-12dp"
+                android:layout_marginBottom="-12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="york"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/anton"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="6dp" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Input Fields Layout -->
+            <LinearLayout
+                android:id="@+id/layout_inputs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="36dp"
+                app:layout_constraintTop_toBottomOf="@+id/card_graphic_frame">
+
+                <!-- Email Input -->
+                <EditText
+                    android:id="@+id/input_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_black_sticker"
+                    android:backgroundTint="@color/black"
+                    android:hint="EMAIL ADDRESS"
+                    android:textColorHint="#888888"
+                    android:textColor="@color/white"
+                    android:inputType="textEmailAddress"
+                    android:paddingHorizontal="16dp"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/anton"
+                    android:letterSpacing="0.05"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Password Input -->
+                <EditText
+                    android:id="@+id/input_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_black_sticker"
+                    android:backgroundTint="@color/black"
+                    android:hint="PASSWORD"
+                    android:textColorHint="#888888"
+                    android:textColor="@color/white"
+                    android:inputType="textPassword"
+                    android:paddingHorizontal="16dp"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/anton"
+                    android:letterSpacing="0.05"
+                    android:layout_marginBottom="24dp" />
+
+                <!-- Enter Button (Neo-brutalism Style) -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp">
+
+                    <!-- Button Shadow -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginStart="4dp"
+                        android:background="@color/black" />
+
+                    <!-- Button Fore -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_login_enter"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:text="ENTER"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/anton"
+                        android:letterSpacing="0.05"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        app:backgroundTint="@color/white"
+                        app:strokeColor="@color/black"
+                        app:strokeWidth="3dp"
+                        app:cornerRadius="0dp" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <!-- OR Divider -->
+            <LinearLayout
+                android:id="@+id/layout_divider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="24dp"
+                app:layout_constraintTop_toBottomOf="@+id/layout_inputs">
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="1.5dp"
+                    android:background="#888888" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="OR"
+                    android:textColor="#888888"
+                    android:textSize="13sp"
+                    android:layout_marginHorizontal="12dp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="80dp"
+                    android:layout_height="1.5dp"
+                    android:background="#888888" />
+
+            </LinearLayout>
+
+            <!-- Sign in with Google Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_google_signin"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="24dp"
+                android:text="SIGN IN WITH GOOGLE"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                app:backgroundTint="#F8F8F8"
+                app:strokeColor="#CCCCCC"
+                app:strokeWidth="1.5dp"
+                app:cornerRadius="26dp"
+                app:layout_constraintTop_toBottomOf="@+id/layout_divider" />
+
+            <!-- Link to Sign Up -->
+            <TextView
+                android:id="@+id/txt_go_to_signup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Need an account?"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_google_signin" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

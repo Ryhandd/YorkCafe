@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.yorkcafe.app-mergeDebugResources-28:/values-h720dp-v13/values-h720dp-v13.xml",
+            "map": [
+                {
+                    "source": "D:\\Gradle_Cache\\caches\\9.1.0\\transforms\\5a35d9e84ca238f3a9211547550bd55a\\workspace\\transformed\\appcompat-1.6.1\\res\\values-h720dp-v13\\values-h720dp-v13.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "66",
+                        "endOffsets": "117"
+                    }
+                }
+            ]
+        }
+    ]
+}
