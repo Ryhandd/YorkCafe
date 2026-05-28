@@ -7,6 +7,21 @@
     android:background="@color/white"
     tools:context=".MainActivity">
 
+    <!-- ViewPager2 for swipable pages -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/main_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/custom_bottom_nav" />
+
+    <!-- Hidden container to hold pages so they are inflated and available via findViewById -->
+    <FrameLayout
+        android:id="@+id/hidden_page_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
     <!-- ========================================== -->
     <!--            HOME PAGE (TAB 1)               -->
     <!-- ========================================== -->
@@ -61,25 +76,42 @@
                         app:layout_constraintTop_toTopOf="@+id/app_title"
                         app:layout_constraintStart_toEndOf="@+id/app_title" />
 
-                    <!-- Join us! Button -->
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_join_us"
+                    <!-- Join the Club Button with Offset Shadow -->
+                    <FrameLayout
+                        android:id="@+id/btn_join_us_container"
                         android:layout_width="wrap_content"
-                        android:layout_height="38dp"
-                        android:text="Join us!"
-                        android:textColor="@color/black"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:paddingHorizontal="16dp"
-                        app:backgroundTint="@color/white"
-                        app:strokeColor="@color/black"
-                        app:strokeWidth="2.5dp"
-                        app:cornerRadius="0dp"
+                        android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/app_title"
-                        app:layout_constraintBottom_toBottomOf="@+id/app_title" />
+                        app:layout_constraintBottom_toBottomOf="@+id/app_title">
+
+                        <!-- Solid Shadow -->
+                        <View
+                            android:layout_width="125dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginStart="4dp"
+                            android:background="@color/black" />
+
+                        <!-- Main Button -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_join_us"
+                            android:layout_width="125dp"
+                            android:layout_height="40dp"
+                            android:text="JOIN THE CLUB!"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/anton"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:paddingHorizontal="4dp"
+                            app:backgroundTint="@color/brand_red"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="2.5dp"
+                            app:cornerRadius="0dp" />
+
+                    </FrameLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -183,7 +215,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Non-Coffee"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         android:textSize="14sp"
                         android:paddingLeft="14dp"
@@ -197,11 +229,11 @@
                         app:cornerRadius="0dp" />
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_skate_goods_filter"
+                        android:id="@+id/btn_snack_filter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Skate Goods"
-                        android:textColor="@color/white"
+                        android:text="Snack"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         android:textSize="14sp"
                         android:paddingLeft="14dp"
@@ -245,7 +277,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_margin="3dp"
-                                android:src="@drawable/york"
+                                android:src="@drawable/bassque_cheesecake"
                                 android:scaleType="centerCrop"
                                 android:contentDescription="Coffee dripping" />
 
@@ -320,119 +352,451 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-                <!-- Item 2: Oat Latte Horizontal Card -->
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/oat_latte_container"
+                <!-- Item 2: Mango Sugus Horizontal Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mango_sugus_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
-                    android:layout_marginBottom="20dp">
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="0dp"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="2.5dp">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/oat_latte_polaroid_card"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="0dp"
-                        app:strokeColor="@color/black"
-                        app:strokeWidth="2.5dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent">
+                        android:orientation="horizontal"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
 
+                        <!-- Photo with black border -->
+                        <FrameLayout
+                            android:layout_width="140dp"
+                            android:layout_height="120dp"
+                            android:background="@color/black">
+
+                            <ImageView
+                                android:id="@+id/mango_sugus_home_image"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="2.5dp"
+                                android:src="@drawable/mango_sugus"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="Mango Sugus" />
+
+                        </FrameLayout>
+
+                        <!-- Info on right -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:padding="12dp"
-                            android:gravity="center_vertical">
+                            android:orientation="vertical"
+                            android:layout_marginStart="16dp">
 
-                            <!-- Photo with black border -->
-                            <FrameLayout
-                                android:layout_width="140dp"
-                                android:layout_height="120dp"
-                                android:background="@color/black">
-
-                                <ImageView
-                                    android:id="@+id/oat_latte_home_image"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_margin="2.5dp"
-                                    android:src="@drawable/b2"
-                                    android:scaleType="centerCrop"
-                                    android:contentDescription="Oat Latte" />
-
-                            </FrameLayout>
-
-                            <!-- Info on right -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
+                            <TextView
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_marginStart="16dp">
+                                android:text="MANGO SUGUS"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/anton"
+                                android:lineSpacingMultiplier="0.9" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="OAT\nLATTE"
-                                    android:textColor="@color/black"
-                                    android:textSize="20sp"
-                                    android:textStyle="bold"
-                                    android:fontFamily="@font/anton"
-                                    android:lineSpacingMultiplier="0.9" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="25K"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/anton"
+                                android:background="@drawable/bg_price_sticker_yellow"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingTop="3dp"
+                                android:paddingBottom="3dp"
+                                android:layout_marginTop="6dp" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="$6"
-                                    android:textColor="@color/black"
-                                    android:textSize="18sp"
-                                    android:textStyle="bold"
-                                    android:fontFamily="@font/anton"
-                                    android:background="@drawable/bg_price_sticker_yellow"
-                                    android:paddingLeft="10dp"
-                                    android:paddingRight="10dp"
-                                    android:paddingTop="3dp"
-                                    android:paddingBottom="3dp"
-                                    android:layout_marginTop="6dp" />
-
-                                <com.google.android.material.button.MaterialButton
-                                    android:id="@+id/oat_latte_home_add_button"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="38dp"
-                                    android:text="ADD"
-                                    android:textColor="@color/black"
-                                    android:textStyle="bold"
-                                    android:textSize="13sp"
-                                    android:layout_marginTop="8dp"
-                                    android:insetTop="0dp"
-                                    android:insetBottom="0dp"
-                                    app:backgroundTint="@color/white"
-                                    app:strokeColor="@color/black"
-                                    app:strokeWidth="1.8dp"
-                                    app:cornerRadius="0dp" />
-
-                            </LinearLayout>
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/mango_sugus_home_add_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="38dp"
+                                android:text="ADD"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:textSize="13sp"
+                                android:layout_marginTop="8dp"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp"
+                                app:backgroundTint="@color/black"
+                                app:strokeColor="@color/black"
+                                app:strokeWidth="1.8dp"
+                                app:cornerRadius="0dp" />
 
                         </LinearLayout>
 
-                    </com.google.android.material.card.MaterialCardView>
+                    </LinearLayout>
 
-                    <!-- Blue smiley face sticker -->
-                    <ImageView
-                        android:id="@+id/smiley_sticker"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        android:src="@drawable/ic_smiley_blue"
-                        android:elevation="6dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:layout_marginStart="-6dp"
-                        android:layout_marginBottom="-12dp"
-                        android:contentDescription="Smiley face" />
+                </com.google.android.material.card.MaterialCardView>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <!-- Item 3: Kopi Susu Gula Aren Horizontal Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/kopi_susu_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="0dp"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="2.5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <!-- Photo with black border -->
+                        <FrameLayout
+                            android:layout_width="140dp"
+                            android:layout_height="120dp"
+                            android:background="@color/black">
+
+                            <ImageView
+                                android:id="@+id/kopi_susu_home_image"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="2.5dp"
+                                android:src="@drawable/kopi_susu_gula_aren"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="Kopi Susu Gula Aren" />
+
+                        </FrameLayout>
+
+                        <!-- Info on right -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginStart="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="KOPI SUSU GULA AREN"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/anton"
+                                android:lineSpacingMultiplier="0.9" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="20K"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/anton"
+                                android:background="@drawable/bg_price_sticker_yellow"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingTop="3dp"
+                                android:paddingBottom="3dp"
+                                android:layout_marginTop="6dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/kopi_susu_home_add_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="38dp"
+                                android:text="ADD"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:textSize="13sp"
+                                android:layout_marginTop="8dp"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp"
+                                app:backgroundTint="@color/black"
+                                app:strokeColor="@color/black"
+                                app:strokeWidth="1.8dp"
+                                app:cornerRadius="0dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Item 4: Avocado Coffee Horizontal Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/avocado_coffee_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="0dp"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="2.5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <!-- Photo with black border -->
+                        <FrameLayout
+                            android:layout_width="140dp"
+                            android:layout_height="120dp"
+                            android:background="@color/black">
+
+                            <ImageView
+                                android:id="@+id/avocado_coffee_home_image"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="2.5dp"
+                                android:src="@drawable/avocado_coffee"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="Avocado Coffee" />
+
+                        </FrameLayout>
+
+                        <!-- Info on right -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginStart="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="AVOCADO COFFEE"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/anton"
+                                android:lineSpacingMultiplier="0.9" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="35K"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/anton"
+                                android:background="@drawable/bg_price_sticker_yellow"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingTop="3dp"
+                                android:paddingBottom="3dp"
+                                android:layout_marginTop="6dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/avocado_coffee_home_add_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="38dp"
+                                android:text="ADD"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:textSize="13sp"
+                                android:layout_marginTop="8dp"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp"
+                                app:backgroundTint="@color/black"
+                                app:strokeColor="@color/black"
+                                app:strokeWidth="1.8dp"
+                                app:cornerRadius="0dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Item 5: Goroho Stick Horizontal Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/goroho_stick_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="0dp"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="2.5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <!-- Photo with black border -->
+                        <FrameLayout
+                            android:layout_width="140dp"
+                            android:layout_height="120dp"
+                            android:background="@color/black">
+
+                            <ImageView
+                                android:id="@+id/goroho_stick_home_image"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="2.5dp"
+                                android:src="@drawable/york"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="Goroho Stick" />
+
+                        </FrameLayout>
+
+                        <!-- Info on right -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginStart="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="GOROHO STICK"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/anton"
+                                android:lineSpacingMultiplier="0.9" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="20K"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/anton"
+                                android:background="@drawable/bg_price_sticker_yellow"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingTop="3dp"
+                                android:paddingBottom="3dp"
+                                android:layout_marginTop="6dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/goroho_stick_home_add_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="38dp"
+                                android:text="ADD"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:textSize="13sp"
+                                android:layout_marginTop="8dp"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp"
+                                app:backgroundTint="@color/black"
+                                app:strokeColor="@color/black"
+                                app:strokeWidth="1.8dp"
+                                app:cornerRadius="0dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Item 6: Mix Platter Horizontal Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/mix_platter_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginBottom="20dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="0dp"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="2.5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp"
+                        android:gravity="center_vertical">
+
+                        <!-- Photo with black border -->
+                        <FrameLayout
+                            android:layout_width="140dp"
+                            android:layout_height="120dp"
+                            android:background="@color/black">
+
+                            <ImageView
+                                android:id="@+id/mix_platter_home_image"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="2.5dp"
+                                android:src="@drawable/york"
+                                android:scaleType="centerCrop"
+                                android:contentDescription="Mix Platter" />
+
+                        </FrameLayout>
+
+                        <!-- Info on right -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginStart="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="MIX PLATTER"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/anton"
+                                android:lineSpacingMultiplier="0.9" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="35K"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:fontFamily="@font/anton"
+                                android:background="@drawable/bg_price_sticker_yellow"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:paddingTop="3dp"
+                                android:paddingBottom="3dp"
+                                android:layout_marginTop="6dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/mix_platter_home_add_button"
+                                android:layout_width="match_parent"
+                                android:layout_height="38dp"
+                                android:text="ADD"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:textSize="13sp"
+                                android:layout_marginTop="8dp"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp"
+                                app:backgroundTint="@color/black"
+                                app:strokeColor="@color/black"
+                                app:strokeWidth="1.8dp"
+                                app:cornerRadius="0dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
 
@@ -652,12 +1016,12 @@
                                     android:layout_width="28dp"
                                     android:layout_height="28dp"
                                     android:text="+"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/white"
                                     android:textStyle="bold"
                                     android:padding="0dp"
                                     android:insetTop="0dp"
                                     android:insetBottom="0dp"
-                                    app:backgroundTint="@color/white"
+                                    app:backgroundTint="@color/black"
                                     app:strokeColor="@color/black"
                                     app:strokeWidth="1dp"
                                     app:cornerRadius="14dp"
@@ -738,12 +1102,12 @@
                                     android:layout_width="24dp"
                                     android:layout_height="24dp"
                                     android:text="+"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/white"
                                     android:textStyle="bold"
                                     android:padding="0dp"
                                     android:insetTop="0dp"
                                     android:insetBottom="0dp"
-                                    app:backgroundTint="@color/white"
+                                    app:backgroundTint="@color/black"
                                     app:strokeColor="@color/black"
                                     app:strokeWidth="1dp"
                                     app:cornerRadius="12dp"
@@ -818,12 +1182,12 @@
                                     android:layout_width="24dp"
                                     android:layout_height="24dp"
                                     android:text="+"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/white"
                                     android:textStyle="bold"
                                     android:padding="0dp"
                                     android:insetTop="0dp"
                                     android:insetBottom="0dp"
-                                    app:backgroundTint="@color/white"
+                                    app:backgroundTint="@color/black"
                                     app:strokeColor="@color/black"
                                     app:strokeWidth="1dp"
                                     app:cornerRadius="12dp"
@@ -1065,12 +1429,12 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:text="+"
-                                android:textColor="@color/black"
+                                android:textColor="@color/white"
                                 android:textStyle="bold"
                                 android:padding="0dp"
                                 android:insetTop="0dp"
                                 android:insetBottom="0dp"
-                                app:backgroundTint="@color/white"
+                                app:backgroundTint="@color/black"
                                 app:strokeColor="@color/black"
                                 app:strokeWidth="1.2dp"
                                 app:cornerRadius="16dp"
@@ -1159,12 +1523,12 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:text="+"
-                                android:textColor="@color/black"
+                                android:textColor="@color/white"
                                 android:textStyle="bold"
                                 android:padding="0dp"
                                 android:insetTop="0dp"
                                 android:insetBottom="0dp"
-                                app:backgroundTint="@color/white"
+                                app:backgroundTint="@color/black"
                                 app:strokeColor="@color/black"
                                 app:strokeWidth="1.2dp"
                                 app:cornerRadius="16dp"
@@ -1253,12 +1617,12 @@
                                 android:layout_width="32dp"
                                 android:layout_height="32dp"
                                 android:text="+"
-                                android:textColor="@color/black"
+                                android:textColor="@color/white"
                                 android:textStyle="bold"
                                 android:padding="0dp"
                                 android:insetTop="0dp"
                                 android:insetBottom="0dp"
-                                app:backgroundTint="@color/white"
+                                app:backgroundTint="@color/black"
                                 app:strokeColor="@color/black"
                                 app:strokeWidth="1.2dp"
                                 app:cornerRadius="16dp"
@@ -1931,6 +2295,7 @@
                             app:strokeWidth="2dp"
                             app:cardElevation="2dp">
                             <TextView
+                                android:id="@+id/txt_profile_role"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="GUEST"
@@ -2186,6 +2551,23 @@
 
                     </com.google.android.material.card.MaterialCardView>
 
+                    <!-- LOG OUT Button -->
+                    <TextView
+                        android:id="@+id/btn_logout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="32dp"
+                        android:text="LOG OUT"
+                        android:textColor="@color/brand_red"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/anton"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground" />
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -2193,6 +2575,8 @@
         </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
 
     <!-- ======================================================= -->
     <!--            OVERLAY PAGE: DETAIL VIEW                    -->

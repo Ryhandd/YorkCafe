@@ -20,6 +20,7 @@ drawable avocado_coffee
 drawable b1
 drawable b2
 drawable b3
+drawable bassque_cheesecake
 drawable bg_active_nav
 drawable bg_black_sticker
 drawable bg_cart_badge
@@ -54,6 +55,7 @@ drawable ic_settings
 drawable ic_shopping_bag
 drawable ic_smiley_blue
 drawable ic_star_outline
+drawable kopi_susu_gula_aren
 drawable logo
 drawable mango_sugus
 drawable mbg
@@ -64,6 +66,9 @@ drawable york
 font anton
 id app_title
 id avatar_centerpiece
+id avocado_coffee_container
+id avocado_coffee_home_add_button
+id avocado_coffee_home_image
 id box_yorkers
 id btn_checkout
 id btn_checkout_close
@@ -84,7 +89,9 @@ id btn_food_main_add_3
 id btn_google_signin
 id btn_header_cart
 id btn_join_us
+id btn_join_us_container
 id btn_login_enter
+id btn_logout
 id btn_menu_drawer
 id btn_nav_cart
 id btn_nav_home
@@ -105,7 +112,7 @@ id btn_signup_enter
 id btn_size_l
 id btn_size_m
 id btn_size_s
-id btn_skate_goods_filter
+id btn_snack_filter
 id btn_submit_review
 id btn_temp_hot
 id btn_temp_iced
@@ -153,6 +160,9 @@ id food_main_title_2
 id food_main_title_3
 id food_title_bar
 id fueling_up_text
+id goroho_stick_container
+id goroho_stick_home_add_button
+id goroho_stick_home_image
 id grid_bites
 id grid_indomie
 id grid_more
@@ -161,6 +171,7 @@ id header_layout
 id hero_container
 id hero_image_card
 id hero_image_pager
+id hidden_page_container
 id img_detail_product
 id img_fav_1
 id img_fav_2
@@ -176,6 +187,9 @@ id input_email
 id input_name
 id input_password
 id input_table_number
+id kopi_susu_container
+id kopi_susu_home_add_button
+id kopi_susu_home_image
 id layout_active_cart
 id layout_divider
 id layout_empty_cart
@@ -188,14 +202,17 @@ id list_coffee
 id list_just_case
 id list_milk_option
 id list_spill_tea
+id main_view_pager
+id mango_sugus_container
+id mango_sugus_home_add_button
+id mango_sugus_home_image
+id mix_platter_container
+id mix_platter_home_add_button
+id mix_platter_home_image
 id nav_cart
 id nav_food
 id nav_home
 id nav_profile
-id oat_latte_container
-id oat_latte_home_add_button
-id oat_latte_home_image
-id oat_latte_polaroid_card
 id page_cart
 id page_checkout_flow
 id page_crashed
@@ -214,7 +231,6 @@ id profile_header_bar
 id profile_menu_icon
 id red_star_icon
 id secured_title
-id smiley_sticker
 id star_1
 id star_2
 id star_3
@@ -234,6 +250,7 @@ id txt_detail_title
 id txt_go_to_login
 id txt_go_to_signup
 id txt_portion_label
+id txt_profile_role
 id txt_profile_username
 id txt_secured_method
 id txt_secured_order_no

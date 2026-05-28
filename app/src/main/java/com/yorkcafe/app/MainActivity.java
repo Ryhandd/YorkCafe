@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Tab Pages
     private View pageHome, pageFood, pageCart, pageProfile;
+    private ViewPager2 mainViewPager;
 
     // Custom Bottom Nav Bar Elements
     private FrameLayout btnNavHome, btnNavMenu, btnNavCart, btnNavProfile;
@@ -57,14 +58,32 @@ public class MainActivity extends AppCompatActivity {
     private ImageView heartIconHero, starIconHero;
 
     // Category Filter Buttons
-    private MaterialButton btnCoffee, btnNonCoffee, btnSkateGoods;
+    private MaterialButton btnCoffee, btnNonCoffee, btnSnack;
+    private String currentHomeFilter = "ALL";
 
     // Polaroid Home Cards
     private CardView polaroidCard;
     private ImageView coffeePourImage;
-    private CardView oatLatteHomeCard;
-    private ImageView oatLatteHomeImage;
-    private MaterialButton btnOatLatteHomeAdd;
+    
+    private View mangoSugusHomeCard;
+    private ImageView mangoSugusHomeImage;
+    private MaterialButton btnMangoSugusHomeAdd;
+
+    private View kopiSusuHomeCard;
+    private ImageView kopiSusuHomeImage;
+    private MaterialButton btnKopiSusuHomeAdd;
+
+    private View avocadoCoffeeHomeCard;
+    private ImageView avocadoCoffeeHomeImage;
+    private MaterialButton btnAvocadoCoffeeHomeAdd;
+
+    private View gorohoStickHomeCard;
+    private ImageView gorohoStickHomeImage;
+    private MaterialButton btnGorohoStickHomeAdd;
+
+    private View mixPlatterHomeCard;
+    private ImageView mixPlatterHomeImage;
+    private MaterialButton btnMixPlatterHomeAdd;
 
     // Food Tab Favorite Cards
     private View cardFav1, cardFav2, cardFav3;
@@ -172,6 +191,9 @@ public class MainActivity extends AppCompatActivity {
     private com.google.android.material.card.MaterialCardView btnPastOrders, btnSavedVibes, btnPaymentMethods, btnSettings;
     private FrameLayout profileCartBag;
     private TextView txtProfileUsername;
+    private TextView txtProfileRole;
+    private TextView btnLogout;
+    private View btnJoinUsContainer;
 
     // Menu Item Structure
     private static class MenuItem {
@@ -311,13 +333,7 @@ public class MainActivity extends AppCompatActivity {
         setupSecuredAndCrashedActions();
         setupProfileActions();
 
-        // Apply B&W filters to polaroid images
-        applyGrayscaleFilter(coffeePourImage);
-        applyGrayscaleFilter(oatLatteHomeImage);
-        applyGrayscaleFilter(imgFav1);
-        applyGrayscaleFilter(imgFav2);
-        applyGrayscaleFilter(imgFav3);
-        applyGrayscaleFilter(imgFoodMain1);
+        // No grayscale filters applied - keeping all images in full color!
 
         // Populate dynamic lists
         populateMenuCategory(listCoffee, coffeeList);
@@ -325,23 +341,16 @@ public class MainActivity extends AppCompatActivity {
         populateMenuCategory(listSpillTea, spillTeaList);
         populateMenuCategory(listJustCase, justCaseList);
         populateMenuCategory(listMilkOption, milkOptionList);
-        populateBitesGrid(gridBites, bitesList);
+        populateStraightGrid(gridBites, bitesList);
         populateStraightGrid(gridIndomie, indomieList);
         populateStraightGrid(gridMore, moreList);
 
         // Set active user name in profile
         android.content.SharedPreferences prefs = getSharedPreferences("YorkCafePrefs", MODE_PRIVATE);
-        String activeName = prefs.getString("active_user_name", "Yorkers");
-        if (txtProfileUsername != null) {
-            txtProfileUsername.setText(activeName);
+        if (!prefs.contains("active_user_name")) {
+            prefs.edit().putString("active_user_name", "Yorkers").apply();
         }
-        if (btnJoinUs != null) {
-            if (activeName.equalsIgnoreCase("Yorkers")) {
-                btnJoinUs.setVisibility(View.VISIBLE);
-            } else {
-                btnJoinUs.setVisibility(View.GONE);
-            }
-        }
+        updateUserSessionUI();
 
         selectTab("HOME");
     }
@@ -351,19 +360,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         sliderHandler.postDelayed(sliderRunnable, SLIDER_DELAY_MS);
 
-        // Update user profile name dynamically
-        android.content.SharedPreferences prefs = getSharedPreferences("YorkCafePrefs", MODE_PRIVATE);
-        String activeName = prefs.getString("active_user_name", "Yorkers");
-        if (txtProfileUsername != null) {
-            txtProfileUsername.setText(activeName);
-        }
-        if (btnJoinUs != null) {
-            if (activeName.equalsIgnoreCase("Yorkers")) {
-                btnJoinUs.setVisibility(View.VISIBLE);
-            } else {
-                btnJoinUs.setVisibility(View.GONE);
-            }
-        }
+        updateUserSessionUI();
     }
 
     @Override
@@ -372,12 +369,77 @@ public class MainActivity extends AppCompatActivity {
         sliderHandler.removeCallbacks(sliderRunnable);
     }
 
+    private void updateUserSessionUI() {
+        android.content.SharedPreferences prefs = getSharedPreferences("YorkCafePrefs", MODE_PRIVATE);
+        String activeName = prefs.getString("active_user_name", "Yorkers");
+        if (txtProfileUsername != null) {
+            txtProfileUsername.setText(activeName);
+        }
+        if (txtProfileRole != null) {
+            if (activeName.equalsIgnoreCase("Yorkers")) {
+                txtProfileRole.setText("GUEST");
+            } else {
+                txtProfileRole.setText("MEMBER");
+            }
+        }
+        if (btnJoinUsContainer != null) {
+            if (activeName.equalsIgnoreCase("Yorkers")) {
+                btnJoinUsContainer.setVisibility(View.VISIBLE);
+            } else {
+                btnJoinUsContainer.setVisibility(View.GONE);
+            }
+        } else if (btnJoinUs != null) {
+            if (activeName.equalsIgnoreCase("Yorkers")) {
+                btnJoinUs.setVisibility(View.VISIBLE);
+            } else {
+                btnJoinUs.setVisibility(View.GONE);
+            }
+        }
+    }
+
     private void initializeViews() {
         // Tab Pages
         pageHome = findViewById(R.id.page_home);
         pageFood = findViewById(R.id.page_food);
         pageCart = findViewById(R.id.page_cart);
         pageProfile = findViewById(R.id.page_profile);
+
+        if (pageHome != null) pageHome.setVisibility(View.VISIBLE);
+        if (pageFood != null) pageFood.setVisibility(View.VISIBLE);
+        if (pageCart != null) pageCart.setVisibility(View.VISIBLE);
+        if (pageProfile != null) pageProfile.setVisibility(View.VISIBLE);
+
+        mainViewPager = findViewById(R.id.main_view_pager);
+        List<View> pages = new ArrayList<>();
+        if (pageHome != null) pages.add(pageHome);
+        if (pageFood != null) pages.add(pageFood);
+        if (pageCart != null) pages.add(pageCart);
+        if (pageProfile != null) pages.add(pageProfile);
+
+        ViewPagerAdapter pageAdapter = new ViewPagerAdapter(pages);
+        if (mainViewPager != null) {
+            mainViewPager.setAdapter(pageAdapter);
+            mainViewPager.setOffscreenPageLimit(3);
+            mainViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                @Override
+                public void onPageSelected(int position) {
+                    super.onPageSelected(position);
+                    updateNavUIForPosition(position);
+
+                    String tab = "HOME";
+                    if (position == 1) tab = "FOOD";
+                    else if (position == 2) tab = "CART";
+                    else if (position == 3) tab = "PROFILE";
+
+                    if (!tabHistory.isEmpty() && tabHistory.get(tabHistory.size() - 1).equals(tab)) {
+                        // Already top
+                    } else {
+                        tabHistory.remove(tab);
+                        tabHistory.add(tab);
+                    }
+                }
+            });
+        }
 
         // Custom Bottom Nav
         btnNavHome = findViewById(R.id.btn_nav_home);
@@ -420,14 +482,31 @@ public class MainActivity extends AppCompatActivity {
         // Category Buttons
         btnCoffee = findViewById(R.id.btn_coffee_filter);
         btnNonCoffee = findViewById(R.id.btn_non_coffee_filter);
-        btnSkateGoods = findViewById(R.id.btn_skate_goods_filter);
+        btnSnack = findViewById(R.id.btn_snack_filter);
 
         // Polaroid Home Cards
         polaroidCard = findViewById(R.id.polaroid_card);
         coffeePourImage = findViewById(R.id.coffee_pour_image);
-        oatLatteHomeCard = findViewById(R.id.oat_latte_polaroid_card);
-        oatLatteHomeImage = findViewById(R.id.oat_latte_home_image);
-        btnOatLatteHomeAdd = findViewById(R.id.oat_latte_home_add_button);
+        
+        mangoSugusHomeCard = findViewById(R.id.mango_sugus_container);
+        mangoSugusHomeImage = findViewById(R.id.mango_sugus_home_image);
+        btnMangoSugusHomeAdd = findViewById(R.id.mango_sugus_home_add_button);
+
+        kopiSusuHomeCard = findViewById(R.id.kopi_susu_container);
+        kopiSusuHomeImage = findViewById(R.id.kopi_susu_home_image);
+        btnKopiSusuHomeAdd = findViewById(R.id.kopi_susu_home_add_button);
+
+        avocadoCoffeeHomeCard = findViewById(R.id.avocado_coffee_container);
+        avocadoCoffeeHomeImage = findViewById(R.id.avocado_coffee_home_image);
+        btnAvocadoCoffeeHomeAdd = findViewById(R.id.avocado_coffee_home_add_button);
+
+        gorohoStickHomeCard = findViewById(R.id.goroho_stick_container);
+        gorohoStickHomeImage = findViewById(R.id.goroho_stick_home_image);
+        btnGorohoStickHomeAdd = findViewById(R.id.goroho_stick_home_add_button);
+
+        mixPlatterHomeCard = findViewById(R.id.mix_platter_container);
+        mixPlatterHomeImage = findViewById(R.id.mix_platter_home_image);
+        btnMixPlatterHomeAdd = findViewById(R.id.mix_platter_home_add_button);
 
         // Food Tab Favorite Cards
         cardFav1 = findViewById(R.id.card_fav_1);
@@ -547,6 +626,9 @@ public class MainActivity extends AppCompatActivity {
         btnSettings = findViewById(R.id.btn_settings);
         profileCartBag = findViewById(R.id.profile_cart_bag);
         txtProfileUsername = findViewById(R.id.txt_profile_username);
+        txtProfileRole = findViewById(R.id.txt_profile_role);
+        btnLogout = findViewById(R.id.btn_logout);
+        btnJoinUsContainer = findViewById(R.id.btn_join_us_container);
 
         // Bind Join us! button
         btnJoinUs = findViewById(R.id.btn_join_us);
@@ -559,24 +641,122 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
+        // Keyboard visibility listener to hide detail_bottom_bar when keyboard is open
+        final View rootView = findViewById(android.R.id.content);
+        final View detailBottomBar = findViewById(R.id.detail_bottom_bar);
+        if (rootView != null && detailBottomBar != null) {
+            rootView.getViewTreeObserver().addOnGlobalLayoutListener(new android.view.ViewTreeObserver.OnGlobalLayoutListener() {
+                private boolean isKeyboardOpen = false;
+
+                @Override
+                public void onGlobalLayout() {
+                    android.graphics.Rect r = new android.graphics.Rect();
+                    rootView.getWindowVisibleDisplayFrame(r);
+                    int screenHeight = rootView.getRootView().getHeight();
+                    int keypadHeight = screenHeight - r.bottom;
+
+                    boolean isOpen = keypadHeight > screenHeight * 0.15;
+                    if (isOpen != isKeyboardOpen) {
+                        isKeyboardOpen = isOpen;
+                        if (pageDetail != null && pageDetail.getVisibility() == View.VISIBLE) {
+                            detailBottomBar.setVisibility(isOpen ? View.GONE : View.VISIBLE);
+                        }
+                    }
+                }
+            });
+        }
     }
 
     private void setupCategoryFiltersOnClickListeners() {
-        View.OnClickListener filterListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String filter = "All";
-                if (view.getId() == R.id.btn_coffee_filter) filter = "Coffee";
-                else if (view.getId() == R.id.btn_non_coffee_filter) filter = "Non-Coffee";
-                else if (view.getId() == R.id.btn_skate_goods_filter) filter = "Skate Goods";
-                
-                Toast.makeText(MainActivity.this, "Selected category: " + filter, Toast.LENGTH_SHORT).show();
-                selectTab("FOOD");
-            }
-        };
-        btnCoffee.setOnClickListener(filterListener);
-        btnNonCoffee.setOnClickListener(filterListener);
-        btnSkateGoods.setOnClickListener(filterListener);
+        if (btnCoffee != null) {
+            btnCoffee.setOnClickListener(v -> handleHomeFilterClick("COFFEE"));
+        }
+        if (btnNonCoffee != null) {
+            btnNonCoffee.setOnClickListener(v -> handleHomeFilterClick("NON_COFFEE"));
+        }
+        if (btnSnack != null) {
+            btnSnack.setOnClickListener(v -> handleHomeFilterClick("SNACK"));
+        }
+    }
+
+    private void handleHomeFilterClick(String filter) {
+        if (currentHomeFilter.equals(filter)) {
+            applyHomeFilter("ALL");
+        } else {
+            applyHomeFilter(filter);
+        }
+    }
+
+    private void applyHomeFilter(String filter) {
+        currentHomeFilter = filter;
+
+        // Reset default colors:
+        // Coffee: yellow bg, black text
+        if (btnCoffee != null) {
+            btnCoffee.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.category_coffee_yellow)));
+            btnCoffee.setTextColor(ContextCompat.getColor(this, R.color.black));
+        }
+
+        // Non-Coffee: blue bg, black text
+        if (btnNonCoffee != null) {
+            btnNonCoffee.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.category_non_coffee_blue)));
+            btnNonCoffee.setTextColor(ContextCompat.getColor(this, R.color.black));
+        }
+
+        // Snack: pink bg, black text
+        if (btnSnack != null) {
+            btnSnack.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.category_skate_goods_pink)));
+            btnSnack.setTextColor(ContextCompat.getColor(this, R.color.black));
+        }
+
+        // Highlight selected
+        if (filter.equals("COFFEE") && btnCoffee != null) {
+            btnCoffee.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.black)));
+            btnCoffee.setTextColor(ContextCompat.getColor(this, R.color.white));
+        } else if (filter.equals("NON_COFFEE") && btnNonCoffee != null) {
+            btnNonCoffee.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.black)));
+            btnNonCoffee.setTextColor(ContextCompat.getColor(this, R.color.white));
+        } else if (filter.equals("SNACK") && btnSnack != null) {
+            btnSnack.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.black)));
+            btnSnack.setTextColor(ContextCompat.getColor(this, R.color.white));
+        }
+
+        // Show/hide home page items based on filter:
+        // Basque Cheesecake: SNACK
+        // Mango Sugus: NON_COFFEE
+        // Kopi Susu Gula Aren: COFFEE
+        // Avocado Coffee: COFFEE
+        // Goroho Stick: SNACK
+        // Mix Platter: SNACK
+        int visCheesecake = (filter.equals("ALL") || filter.equals("SNACK")) ? View.VISIBLE : View.GONE;
+        int visMangoSugus = (filter.equals("ALL") || filter.equals("NON_COFFEE")) ? View.VISIBLE : View.GONE;
+        int visKopiSusu = (filter.equals("ALL") || filter.equals("COFFEE")) ? View.VISIBLE : View.GONE;
+        int visAvocadoCoffee = (filter.equals("ALL") || filter.equals("COFFEE")) ? View.VISIBLE : View.GONE;
+        int visGorohoStick = (filter.equals("ALL") || filter.equals("SNACK")) ? View.VISIBLE : View.GONE;
+        int visMixPlatter = (filter.equals("ALL") || filter.equals("SNACK")) ? View.VISIBLE : View.GONE;
+
+        if (polaroidCard != null) {
+            polaroidCard.setVisibility(visCheesecake);
+        }
+
+        View msContainer = findViewById(R.id.mango_sugus_container);
+        if (msContainer != null) {
+            msContainer.setVisibility(visMangoSugus);
+        }
+
+        if (kopiSusuHomeCard != null) {
+            kopiSusuHomeCard.setVisibility(visKopiSusu);
+        }
+        if (avocadoCoffeeHomeCard != null) {
+            avocadoCoffeeHomeCard.setVisibility(visAvocadoCoffee);
+        }
+        if (gorohoStickHomeCard != null) {
+            gorohoStickHomeCard.setVisibility(visGorohoStick);
+        }
+        if (mixPlatterHomeCard != null) {
+            mixPlatterHomeCard.setVisibility(visMixPlatter);
+        }
     }
 
     private void setupHeroOnClickListeners() {
@@ -602,7 +782,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupFoodTabOnClickListeners() {
         // Home page cards open detail view or add shortcut
         if (polaroidCard != null) {
-            polaroidCard.setOnClickListener(v -> showProductDetail("Basque Cheesecake", 32, R.drawable.york, "Basque style burnt cheesecake, creamy and rich."));
+            polaroidCard.setOnClickListener(v -> showProductDetail("Basque Cheesecake", 32, R.drawable.bassque_cheesecake, "Basque style burnt cheesecake, creamy and rich."));
         }
         View polAddBtn = findViewById(R.id.pol_add_btn);
         if (polAddBtn != null) {
@@ -610,14 +790,50 @@ public class MainActivity extends AppCompatActivity {
                 addToCart("Basque Cheesecake", 32);
             });
         }
-        if (btnOatLatteHomeAdd != null) {
-            btnOatLatteHomeAdd.setOnClickListener(v -> {
-                addToCart("Oat Latte", 6);
-                v.postDelayed(() -> {}, 100);
+        // Mango Sugus
+        if (btnMangoSugusHomeAdd != null) {
+            btnMangoSugusHomeAdd.setOnClickListener(v -> {
+                addToCart("Mango Sugus", 25);
             });
         }
-        if (oatLatteHomeCard != null) {
-            oatLatteHomeCard.setOnClickListener(v -> showProductDetail("Oat Latte", 6, R.drawable.b2, "Velvety oat milk coffee option. Pure smooth drift."));
+        if (mangoSugusHomeCard != null) {
+            mangoSugusHomeCard.setOnClickListener(v -> showProductDetail("Mango Sugus", 25, R.drawable.mango_sugus, "Zesty creamy nitrogen infused sweet mango classic drink."));
+        }
+        // Kopi Susu Gula Aren
+        if (btnKopiSusuHomeAdd != null) {
+            btnKopiSusuHomeAdd.setOnClickListener(v -> {
+                addToCart("Kopi Susu Gula Aren", 20);
+            });
+        }
+        if (kopiSusuHomeCard != null) {
+            kopiSusuHomeCard.setOnClickListener(v -> showProductDetail("Kopi Susu Gula Aren", 20, R.drawable.kopi_susu_gula_aren, "Sweet traditional palm sugar double shot espresso iced milk."));
+        }
+        // Avocado Coffee
+        if (btnAvocadoCoffeeHomeAdd != null) {
+            btnAvocadoCoffeeHomeAdd.setOnClickListener(v -> {
+                addToCart("Avocado Coffee", 35);
+            });
+        }
+        if (avocadoCoffeeHomeCard != null) {
+            avocadoCoffeeHomeCard.setOnClickListener(v -> showProductDetail("Avocado Coffee", 35, R.drawable.avocado_coffee, "Creamy pure avocado shake mixed with robust espresso shot."));
+        }
+        // Goroho Stick
+        if (btnGorohoStickHomeAdd != null) {
+            btnGorohoStickHomeAdd.setOnClickListener(v -> {
+                addToCart("Goroho Stick", 20);
+            });
+        }
+        if (gorohoStickHomeCard != null) {
+            gorohoStickHomeCard.setOnClickListener(v -> showProductDetail("Goroho Stick", 20, R.drawable.york, "Traditional crispy fried goroho banana stick."));
+        }
+        // Mix Platter
+        if (btnMixPlatterHomeAdd != null) {
+            btnMixPlatterHomeAdd.setOnClickListener(v -> {
+                addToCart("Mix Platter", 35);
+            });
+        }
+        if (mixPlatterHomeCard != null) {
+            mixPlatterHomeCard.setOnClickListener(v -> showProductDetail("Mix Platter", 35, R.drawable.york, "Crispy mix platter with french fries, chicken nuggets, and sausage."));
         }
 
         // Favorites cards open detail
@@ -999,6 +1215,23 @@ public class MainActivity extends AppCompatActivity {
         if (profileCartBag != null) {
             profileCartBag.setOnClickListener(v -> selectTab("CART"));
         }
+        if (btnLogout != null) {
+            btnLogout.setPaintFlags(btnLogout.getPaintFlags() | android.graphics.Paint.UNDERLINE_TEXT_FLAG);
+            btnLogout.setOnClickListener(v -> {
+                android.content.SharedPreferences.Editor editor = getSharedPreferences("YorkCafePrefs", MODE_PRIVATE).edit();
+                editor.putString("active_user_name", "Yorkers");
+                editor.apply();
+
+                // Update UI immediately using helper
+                updateUserSessionUI();
+
+                Toast.makeText(this, "LOGGED OUT SUCCESSFULLY!", Toast.LENGTH_SHORT).show();
+
+                // Redirect to Login screen
+                android.content.Intent loginIntent = new android.content.Intent(MainActivity.this, LoginActivity.class);
+                startActivity(loginIntent);
+            });
+        }
     }
 
     private void showProductDetail(String name, int price, int imageResId, String description) {
@@ -1051,6 +1284,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Load comments/reviews
         updateProductReviewsUI(name);
+
+        View detailBottomBar = findViewById(R.id.detail_bottom_bar);
+        if (detailBottomBar != null) {
+            detailBottomBar.setVisibility(View.VISIBLE);
+        }
 
         pageDetail.setVisibility(View.VISIBLE);
     }
@@ -1168,13 +1406,13 @@ public class MainActivity extends AppCompatActivity {
             return new MenuItem("Oat Latte", 6, "Velvety oat milk coffee option. Pure smooth drift.", R.drawable.b2);
         }
         if (name.equalsIgnoreCase("Kopi Susu Gula Aren")) {
-            return new MenuItem("Kopi Susu Gula Aren", 20, "Sweet traditional palm sugar double shot espresso iced milk.", R.drawable.b1);
+            return new MenuItem("Kopi Susu Gula Aren", 20, "Sweet traditional palm sugar double shot espresso iced milk.", R.drawable.kopi_susu_gula_aren);
         }
         if (name.equalsIgnoreCase("Mango Sugus")) {
-            return new MenuItem("Mango Sugus", 25, "Zesty creamy nitrogen infused sweet mango classic drink.", R.drawable.b3);
+            return new MenuItem("Mango Sugus", 25, "Zesty creamy nitrogen infused sweet mango classic drink.", R.drawable.mango_sugus);
         }
         if (name.equalsIgnoreCase("Avocado Coffee")) {
-            return new MenuItem("Avocado Coffee", 35, "Creamy pure avocado shake mixed with robust espresso shot.", R.drawable.b1);
+            return new MenuItem("Avocado Coffee", 35, "Creamy pure avocado shake mixed with robust espresso shot.", R.drawable.avocado_coffee);
         }
         if (name.equalsIgnoreCase("MBG - Makan Budget Gokil")) {
             return new MenuItem("MBG - Makan Budget Gokil", 18, "Budget friendly rich chicken rice platter. Fuel for your skate.", R.drawable.b1);
@@ -1358,34 +1596,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void selectTab(String tab, boolean addToHistory) {
-        pageHome.setVisibility(View.GONE);
-        pageFood.setVisibility(View.GONE);
-        pageCart.setVisibility(View.GONE);
-        pageProfile.setVisibility(View.GONE);
+        if (mainViewPager == null) return;
 
-        imgNavHome.setBackground(null);
-        imgNavMenu.setBackground(null);
-        imgNavCart.setBackground(null);
-        imgNavProfile.setBackground(null);
-
+        int position = 0;
         switch (tab) {
             case "HOME":
-                pageHome.setVisibility(View.VISIBLE);
-                imgNavHome.setBackgroundResource(R.drawable.bg_active_nav);
+                position = 0;
                 break;
             case "FOOD":
-                pageFood.setVisibility(View.VISIBLE);
-                imgNavMenu.setBackgroundResource(R.drawable.bg_active_nav);
+                position = 1;
                 break;
             case "CART":
-                pageCart.setVisibility(View.VISIBLE);
-                imgNavCart.setBackgroundResource(R.drawable.bg_active_nav);
-                updateCartUI();
+                position = 2;
                 break;
             case "PROFILE":
-                pageProfile.setVisibility(View.VISIBLE);
-                imgNavProfile.setBackgroundResource(R.drawable.bg_active_nav);
+                position = 3;
                 break;
+        }
+
+        if (mainViewPager.getCurrentItem() != position) {
+            mainViewPager.setCurrentItem(position, false);
+        } else {
+            updateNavUIForPosition(position);
         }
 
         // Add to history
@@ -1395,6 +1627,29 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Log.d(TAG, "Selected tab: " + tab + ", history size: " + tabHistory.size());
+    }
+
+    private void updateNavUIForPosition(int position) {
+        imgNavHome.setBackground(null);
+        imgNavMenu.setBackground(null);
+        imgNavCart.setBackground(null);
+        imgNavProfile.setBackground(null);
+
+        switch (position) {
+            case 0:
+                imgNavHome.setBackgroundResource(R.drawable.bg_active_nav);
+                break;
+            case 1:
+                imgNavMenu.setBackgroundResource(R.drawable.bg_active_nav);
+                break;
+            case 2:
+                imgNavCart.setBackgroundResource(R.drawable.bg_active_nav);
+                updateCartUI();
+                break;
+            case 3:
+                imgNavProfile.setBackgroundResource(R.drawable.bg_active_nav);
+                break;
+        }
     }
 
     @Override
@@ -1409,7 +1664,7 @@ public class MainActivity extends AppCompatActivity {
             pageCrashed.setVisibility(View.GONE);
         } else {
             // If we are currently on the Home page (main menu), exit directly.
-            if (pageHome.getVisibility() == View.VISIBLE) {
+            if (mainViewPager != null && mainViewPager.getCurrentItem() == 0) {
                 showExitConfirmationDialog();
             } else {
                 // Otherwise, navigate back to the Home page
@@ -1697,11 +1952,11 @@ public class MainActivity extends AppCompatActivity {
             // Plus Button (shortcut to directly add to cart)
             MaterialButton btnAdd = new MaterialButton(this, null, com.google.android.material.R.attr.materialButtonStyle);
             btnAdd.setText("+");
-            btnAdd.setTextColor(ContextCompat.getColor(this, R.color.black));
+            btnAdd.setTextColor(ContextCompat.getColor(this, R.color.white));
             btnAdd.setStrokeColor(ContextCompat.getColorStateList(this, R.color.black));
             btnAdd.setStrokeWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, getResources().getDisplayMetrics()));
             btnAdd.setCornerRadius((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 18, getResources().getDisplayMetrics()));
-            btnAdd.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+            btnAdd.setBackgroundColor(ContextCompat.getColor(this, R.color.black));
             btnAdd.setInsetBottom(0);
             btnAdd.setInsetTop(0);
             btnAdd.setPadding(0, 0, 0, 0);
@@ -1826,11 +2081,11 @@ public class MainActivity extends AppCompatActivity {
 
         MaterialButton btnAdd = new MaterialButton(this, null, com.google.android.material.R.attr.materialButtonStyle);
         btnAdd.setText("+");
-        btnAdd.setTextColor(ContextCompat.getColor(this, R.color.black));
+        btnAdd.setTextColor(ContextCompat.getColor(this, R.color.white));
         btnAdd.setStrokeColor(ContextCompat.getColorStateList(this, R.color.black));
         btnAdd.setStrokeWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.0f, getResources().getDisplayMetrics()));
         btnAdd.setCornerRadius((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics()));
-        btnAdd.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        btnAdd.setBackgroundColor(ContextCompat.getColor(this, R.color.black));
         btnAdd.setInsetBottom(0);
         btnAdd.setInsetTop(0);
         btnAdd.setPadding(0, 0, 0, 0);
@@ -1954,11 +2209,11 @@ public class MainActivity extends AppCompatActivity {
 
         MaterialButton btnAdd = new MaterialButton(this, null, com.google.android.material.R.attr.materialButtonStyle);
         btnAdd.setText("+");
-        btnAdd.setTextColor(ContextCompat.getColor(this, R.color.black));
+        btnAdd.setTextColor(ContextCompat.getColor(this, R.color.white));
         btnAdd.setStrokeColor(ContextCompat.getColorStateList(this, R.color.black));
         btnAdd.setStrokeWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.0f, getResources().getDisplayMetrics()));
         btnAdd.setCornerRadius((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics()));
-        btnAdd.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        btnAdd.setBackgroundColor(ContextCompat.getColor(this, R.color.black));
         btnAdd.setInsetBottom(0);
         btnAdd.setInsetTop(0);
         btnAdd.setPadding(0, 0, 0, 0);
@@ -1982,5 +2237,53 @@ public class MainActivity extends AppCompatActivity {
         matrix.setSaturation(0);
         ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
         imageView.setColorFilter(filter);
+    }
+
+    private static class ViewPagerAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<ViewPagerAdapter.ViewHolder> {
+        private final List<View> mViews;
+
+        ViewPagerAdapter(List<View> views) {
+            this.mViews = views;
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull android.view.ViewGroup parent, int viewType) {
+            FrameLayout container = new FrameLayout(parent.getContext());
+            container.setLayoutParams(new android.view.ViewGroup.LayoutParams(
+                    android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                    android.view.ViewGroup.LayoutParams.MATCH_PARENT));
+            return new ViewHolder(container);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            FrameLayout container = (FrameLayout) holder.itemView;
+            View view = mViews.get(position);
+            
+            // Remove view from its current parent if any
+            if (view.getParent() != null) {
+                ((android.view.ViewGroup) view.getParent()).removeView(view);
+            }
+            
+            // Force layout params to match parent inside ViewPager2
+            view.setLayoutParams(new FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.MATCH_PARENT));
+            
+            container.removeAllViews();
+            container.addView(view);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mViews.size();
+        }
+
+        static class ViewHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
+            ViewHolder(@NonNull View itemView) {
+                super(itemView);
+            }
+        }
     }
 }
