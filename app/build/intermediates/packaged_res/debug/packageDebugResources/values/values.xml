@@ -20,6 +20,9 @@
     <style name="Base.Theme.YorkCafe" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/black</item>
     </style>
+    <style name="CircleImageView">
+        <item name="cornerSize">50%</item>
+    </style>
     <style name="Theme.YorkCafe" parent="Base.Theme.YorkCafe"/>
     <style name="Theme.YorkCafe.Splash" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:statusBarColor">@color/black</item>

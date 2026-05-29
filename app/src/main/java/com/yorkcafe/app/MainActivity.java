@@ -10,6 +10,7 @@ import android.widget.Toast;
 import android.widget.LinearLayout;
 import android.widget.FrameLayout;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.os.Handler;
 import android.os.Looper;
 import android.graphics.ColorMatrix;
@@ -21,6 +22,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.Random;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AlertDialog;
@@ -43,6 +46,53 @@ public class MainActivity extends AppCompatActivity {
     // Tab Pages
     private View pageHome, pageFood, pageCart, pageProfile;
     private ViewPager2 mainViewPager;
+
+    // NEW PROFILE OVERLAY PAGES
+    private View pagePastOrders, pageSavedVibes, pagePaymentMethods, pageSettings;
+    private View btnPastOrdersBack, btnSavedVibesBack, btnPaymentBack, btnSettingsBack;
+    private MaterialButton btnAddNewPayment, btnLogoutSettings;
+    private LinearLayout pastOrdersListContainer, savedVibesGrid;
+    private TextView txtSettingsUsername;
+
+    // EDIT PROFILE & CHANGE PASSWORD OVERLAYS
+    private View pageEditProfile, pageChangePassword;
+    private View btnEditProfileBack, btnChangePasswordBack;
+    private View btnSettingsEditProfile, btnSettingsChangePassword;
+    private TextView txtSettingsEmail;
+    private ImageView imgSettingsProfilePhoto, imgProfileAvatar;
+    private View btnEditProfilePhoto;
+    private ImageView imgEditProfileAvatar;
+    private EditText inputEditProfileName, inputEditProfileEmail;
+    private MaterialButton btnEditProfileSave;
+    private EditText inputChangePwdOld, inputChangePwdNew, inputChangePwdConfirm;
+    private MaterialButton btnChangePasswordSave;
+
+    private static final int PICK_IMAGE_REQUEST = 9001;
+
+    // Heart badge layouts
+    private View heartBadgeBasqueHome, heartBadgeMangoHome, heartBadgeKopiSusuHome, heartBadgeAvocadoHome, heartBadgeGorohoHome, heartBadgeMixHome;
+    private View heartBadgeFav1, heartBadgeFav2, heartBadgeFav3;
+    private ImageView btnDetailHeart;
+
+    // Saved vibes & past orders sets/lists
+    private final Set<String> savedVibesSet = new HashSet<>();
+    private final List<PastOrder> pastOrdersList = new ArrayList<>();
+
+    private static class PastOrder {
+        String orderId;
+        String date;
+        int totalPrice;
+        List<CartItem> items;
+        String status;
+
+        PastOrder(String orderId, String date, int totalPrice, List<CartItem> items, String status) {
+            this.orderId = orderId;
+            this.date = date;
+            this.totalPrice = totalPrice;
+            this.items = items;
+            this.status = status;
+        }
+    }
 
     // Custom Bottom Nav Bar Elements
     private FrameLayout btnNavHome, btnNavMenu, btnNavCart, btnNavProfile;
@@ -172,9 +222,17 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtCheckoutGiantTotal;
     private TextView txtCheckoutReceiptOrderNo;
     private com.google.android.material.card.MaterialCardView btnPayEpay, btnPayQr;
+    private LinearLayout layoutEpayOptions;
+    private com.google.android.material.card.MaterialCardView btnPayDana, btnPayOvo;
     private MaterialButton btnCheckoutProceed;
     private String selectedPaymentMethod = "E-PAY"; // E-PAY, QR
+    private String selectedEpaySubMethod = ""; // "DANA", "OVO", or ""
     private int currentOrderNumber = 100;
+
+    // OVERLAY: QR Payment Screen
+    private View pageQrPayment;
+    private TextView txtQrTotalAmount;
+    private MaterialButton btnQrPaymentDone, btnQrPaymentCancel;
 
     // OVERLAY: Order Secured Screen
     private View pageSecured;
@@ -345,10 +403,16 @@ public class MainActivity extends AppCompatActivity {
         populateStraightGrid(gridIndomie, indomieList);
         populateStraightGrid(gridMore, moreList);
 
-        // Set active user name in profile
+        // Set active user name, email, and photo in profile
         android.content.SharedPreferences prefs = getSharedPreferences("YorkCafePrefs", MODE_PRIVATE);
         if (!prefs.contains("active_user_name")) {
             prefs.edit().putString("active_user_name", "Yorkers").apply();
+        }
+        if (!prefs.contains("active_user_email")) {
+            prefs.edit().putString("active_user_email", "yorker@york.mail").apply();
+        }
+        if (!prefs.contains("active_user_photo_uri")) {
+            prefs.edit().putString("active_user_photo_uri", "").apply();
         }
         updateUserSessionUI();
 
@@ -369,11 +433,39 @@ public class MainActivity extends AppCompatActivity {
         sliderHandler.removeCallbacks(sliderRunnable);
     }
 
+    private void loadProfilePhotoFromPrefs() {
+        android.content.SharedPreferences prefs = getSharedPreferences("YorkCafePrefs", MODE_PRIVATE);
+        String uriStr = prefs.getString("active_user_photo_uri", prefs.getString("profile_photo_uri", ""));
+        if (!uriStr.isEmpty()) {
+            try {
+                android.net.Uri photoUri = android.net.Uri.parse(uriStr);
+                if (imgSettingsProfilePhoto != null) imgSettingsProfilePhoto.setImageURI(photoUri);
+                if (imgProfileAvatar != null) imgProfileAvatar.setImageURI(photoUri);
+                if (imgEditProfileAvatar != null) imgEditProfileAvatar.setImageURI(photoUri);
+            } catch (Exception e) {
+                if (imgSettingsProfilePhoto != null) imgSettingsProfilePhoto.setImageResource(R.drawable.ic_profile_placeholder);
+                if (imgProfileAvatar != null) imgProfileAvatar.setImageResource(R.drawable.ic_profile_placeholder);
+                if (imgEditProfileAvatar != null) imgEditProfileAvatar.setImageResource(R.drawable.ic_profile_placeholder);
+            }
+        } else {
+            if (imgSettingsProfilePhoto != null) imgSettingsProfilePhoto.setImageResource(R.drawable.ic_profile_placeholder);
+            if (imgProfileAvatar != null) imgProfileAvatar.setImageResource(R.drawable.ic_profile_placeholder);
+            if (imgEditProfileAvatar != null) imgEditProfileAvatar.setImageResource(R.drawable.ic_profile_placeholder);
+        }
+    }
+
     private void updateUserSessionUI() {
         android.content.SharedPreferences prefs = getSharedPreferences("YorkCafePrefs", MODE_PRIVATE);
         String activeName = prefs.getString("active_user_name", "Yorkers");
+        String activeEmail = prefs.getString("active_user_email", "yorker@york.mail");
         if (txtProfileUsername != null) {
             txtProfileUsername.setText(activeName);
+        }
+        if (txtSettingsUsername != null) {
+            txtSettingsUsername.setText(activeName.toUpperCase());
+        }
+        if (txtSettingsEmail != null) {
+            txtSettingsEmail.setText(activeEmail.toLowerCase());
         }
         if (txtProfileRole != null) {
             if (activeName.equalsIgnoreCase("Yorkers")) {
@@ -393,6 +485,42 @@ public class MainActivity extends AppCompatActivity {
                 btnJoinUs.setVisibility(View.VISIBLE);
             } else {
                 btnJoinUs.setVisibility(View.GONE);
+            }
+        }
+        if (btnLogout != null) {
+            if (activeName.equalsIgnoreCase("Yorkers")) {
+                btnLogout.setVisibility(View.GONE);
+            } else {
+                btnLogout.setVisibility(View.VISIBLE);
+            }
+        }
+        boolean isGoogleLogin = prefs.getBoolean("is_google_login", false);
+        if (btnSettingsChangePassword != null) {
+            btnSettingsChangePassword.setVisibility(isGoogleLogin ? View.GONE : View.VISIBLE);
+        }
+        loadProfilePhotoFromPrefs();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, android.content.Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            android.net.Uri imageUri = data.getData();
+            try {
+                final int takeFlags = data.getFlags() & (android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION | android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                try {
+                    getContentResolver().takePersistableUriPermission(imageUri, takeFlags);
+                } catch (SecurityException e) {
+                    // ignore
+                }
+                getSharedPreferences("YorkCafePrefs", MODE_PRIVATE).edit()
+                        .putString("active_user_photo_uri", imageUri.toString())
+                        .putString("registered_photo_uri", imageUri.toString())
+                        .apply();
+                loadProfilePhotoFromPrefs();
+                Toast.makeText(this, "Profile picture updated!", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -469,8 +597,18 @@ public class MainActivity extends AppCompatActivity {
                 // Do nothing
             }
         }));
-        
+
+        // Fix nested ViewPager2 swipe conflict:
+        // When user drags the hero pager, tell the parent main ViewPager2 to NOT intercept
         heroImagePager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+                // Disable parent pager when child is being dragged or settling
+                if (mainViewPager != null) {
+                    mainViewPager.setUserInputEnabled(state == ViewPager2.SCROLL_STATE_IDLE);
+                }
+            }
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
@@ -478,6 +616,9 @@ public class MainActivity extends AppCompatActivity {
                 sliderHandler.postDelayed(sliderRunnable, 3000);
             }
         });
+
+        // Reduce offscreen pages for hero pager to save memory
+        heroImagePager.setOffscreenPageLimit(1);
 
         // Category Buttons
         btnCoffee = findViewById(R.id.btn_coffee_filter);
@@ -587,12 +728,7 @@ public class MainActivity extends AppCompatActivity {
         btnPortionDouble = findViewById(R.id.btn_portion_double);
 
         // Pre-populate mock reviews
-        if (productReviewsList.isEmpty()) {
-            productReviewsList.add(new ProductReview("House Drip", 5, "Best drip coffee in town! Highly recommend.", "SkatrBoi"));
-            productReviewsList.add(new ProductReview("House Drip", 4, "Strong and bold, got me hyped.", "VibeCheck"));
-            productReviewsList.add(new ProductReview("Oat Latte", 5, "Incredibly creamy and smooth. My favorite!", "OatMilkLover"));
-            productReviewsList.add(new ProductReview("Kopi Susu Gula Aren", 5, "So sweet and perfect for hot days.", "RiderX"));
-        }
+        // Left empty as requested
 
         // CHECKOUT OVERLAY views
         pageCheckoutFlow = findViewById(R.id.page_checkout_flow);
@@ -604,7 +740,16 @@ public class MainActivity extends AppCompatActivity {
         txtCheckoutReceiptOrderNo = findViewById(R.id.txt_checkout_receipt_order_no);
         btnPayEpay = findViewById(R.id.btn_pay_epay);
         btnPayQr = findViewById(R.id.btn_pay_qr);
+        layoutEpayOptions = findViewById(R.id.layout_epay_options);
+        btnPayDana = findViewById(R.id.btn_pay_dana);
+        btnPayOvo = findViewById(R.id.btn_pay_ovo);
         btnCheckoutProceed = findViewById(R.id.btn_checkout_proceed);
+
+        // QR PAYMENT OVERLAY views
+        pageQrPayment = findViewById(R.id.page_qr_payment);
+        txtQrTotalAmount = findViewById(R.id.txt_qr_total_amount);
+        btnQrPaymentDone = findViewById(R.id.btn_qr_payment_done);
+        btnQrPaymentCancel = findViewById(R.id.btn_qr_payment_cancel);
 
         // SECURED OVERLAY views
         pageSecured = findViewById(R.id.page_secured);
@@ -666,6 +811,64 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
+        // Bind profile subpages
+        pagePastOrders = findViewById(R.id.page_past_orders);
+        pageSavedVibes = findViewById(R.id.page_saved_vibes);
+        pagePaymentMethods = findViewById(R.id.page_payment_methods);
+        pageSettings = findViewById(R.id.page_settings);
+
+        btnPastOrdersBack = findViewById(R.id.btn_past_orders_back);
+        btnSavedVibesBack = findViewById(R.id.btn_saved_vibes_back);
+        btnPaymentBack = findViewById(R.id.btn_payment_back);
+        btnSettingsBack = findViewById(R.id.btn_settings_back);
+
+        btnAddNewPayment = findViewById(R.id.btn_add_new_payment);
+        btnLogoutSettings = findViewById(R.id.btn_logout_settings);
+
+        pastOrdersListContainer = findViewById(R.id.past_orders_list_container);
+        savedVibesGrid = findViewById(R.id.saved_vibes_grid);
+        txtSettingsUsername = findViewById(R.id.txt_settings_username);
+
+        txtSettingsEmail = findViewById(R.id.txt_settings_email);
+        btnSettingsEditProfile = findViewById(R.id.btn_settings_edit_profile);
+        btnSettingsChangePassword = findViewById(R.id.btn_settings_change_password);
+        imgSettingsProfilePhoto = findViewById(R.id.img_settings_profile_photo);
+        imgProfileAvatar = findViewById(R.id.img_profile_avatar);
+
+        pageEditProfile = findViewById(R.id.page_edit_profile);
+        btnEditProfileBack = findViewById(R.id.btn_edit_profile_back);
+        btnEditProfilePhoto = findViewById(R.id.btn_edit_profile_photo);
+        imgEditProfileAvatar = findViewById(R.id.img_edit_profile_avatar);
+        inputEditProfileName = findViewById(R.id.input_edit_profile_name);
+        inputEditProfileEmail = findViewById(R.id.input_edit_profile_email);
+        btnEditProfileSave = findViewById(R.id.btn_edit_profile_save);
+
+        pageChangePassword = findViewById(R.id.page_change_password);
+        btnChangePasswordBack = findViewById(R.id.btn_change_password_back);
+        inputChangePwdOld = findViewById(R.id.input_change_pwd_old);
+        inputChangePwdNew = findViewById(R.id.input_change_pwd_new);
+        inputChangePwdConfirm = findViewById(R.id.input_change_pwd_confirm);
+        btnChangePasswordSave = findViewById(R.id.btn_change_password_save);
+
+        // Bind heart badges on Home and Food Page
+        heartBadgeBasqueHome = findViewById(R.id.heart_badge_basque_home);
+        heartBadgeMangoHome = findViewById(R.id.heart_badge_mango_home);
+        heartBadgeKopiSusuHome = findViewById(R.id.heart_badge_kopisusu_home);
+        heartBadgeAvocadoHome = findViewById(R.id.heart_badge_avocado_home);
+        heartBadgeGorohoHome = findViewById(R.id.heart_badge_goroho_home);
+        heartBadgeMixHome = findViewById(R.id.heart_badge_mix_home);
+
+        heartBadgeFav1 = findViewById(R.id.heart_badge_fav_1);
+        heartBadgeFav2 = findViewById(R.id.heart_badge_fav_2);
+        heartBadgeFav3 = findViewById(R.id.heart_badge_fav_3);
+
+        btnDetailHeart = findViewById(R.id.btn_detail_heart);
+
+        // Load saved vibes preferences
+        loadVibesFromPrefs();
+        initializePastOrders();
+        updateHeartBadgesUI();
     }
 
     private void setupCategoryFiltersOnClickListeners() {
@@ -838,7 +1041,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Favorites cards open detail
         if (cardFav1 != null) {
-            cardFav1.setOnClickListener(v -> showProductDetail("Kopi Susu Gula Aren", 20, R.drawable.b1, "Sweet traditional palm sugar double shot espresso iced milk."));
+            cardFav1.setOnClickListener(v -> showProductDetail("Kopi Susu Gula Aren", 20, R.drawable.kopi_susu_gula_aren, "Sweet traditional palm sugar double shot espresso iced milk."));
         }
         if (btnFavAdd1 != null) {
             btnFavAdd1.setOnClickListener(v -> addToCart("Kopi Susu Gula Aren", 20));
@@ -1129,20 +1332,96 @@ public class MainActivity extends AppCompatActivity {
         // Payment selections
         btnPayEpay.setOnClickListener(v -> {
             selectedPaymentMethod = "E-PAY";
+            selectedEpaySubMethod = "";
             btnPayEpay.setCardBackgroundColor(ColorStateList.valueOf(0xFFDDE1F8));
             btnPayQr.setCardBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white)));
+            if (layoutEpayOptions != null) {
+                layoutEpayOptions.setVisibility(View.VISIBLE);
+            }
+            if (btnPayDana != null) {
+                btnPayDana.setCardBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white)));
+            }
+            if (btnPayOvo != null) {
+                btnPayOvo.setCardBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white)));
+            }
         });
 
         btnPayQr.setOnClickListener(v -> {
             selectedPaymentMethod = "QR SCAN";
+            selectedEpaySubMethod = "";
             btnPayQr.setCardBackgroundColor(ColorStateList.valueOf(0xFFDDE1F8));
             btnPayEpay.setCardBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white)));
+            if (layoutEpayOptions != null) {
+                layoutEpayOptions.setVisibility(View.GONE);
+            }
         });
+
+        if (btnPayDana != null) {
+            btnPayDana.setOnClickListener(v -> {
+                selectedEpaySubMethod = "DANA";
+                btnPayDana.setCardBackgroundColor(ColorStateList.valueOf(0xFFDDE1F8));
+                if (btnPayOvo != null) {
+                    btnPayOvo.setCardBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white)));
+                }
+            });
+        }
+
+        if (btnPayOvo != null) {
+            btnPayOvo.setOnClickListener(v -> {
+                selectedEpaySubMethod = "OVO";
+                btnPayOvo.setCardBackgroundColor(ColorStateList.valueOf(0xFFDDE1F8));
+                if (btnPayDana != null) {
+                    btnPayDana.setCardBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white)));
+                }
+            });
+        }
+
+        // QR Payment actions
+        if (btnQrPaymentDone != null) {
+            btnQrPaymentDone.setOnClickListener(v -> {
+                Toast.makeText(this, "VERIFYING PAYMENT...", Toast.LENGTH_SHORT).show();
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                    if (pageQrPayment != null) pageQrPayment.setVisibility(View.GONE);
+                    
+                    Random rand = new Random();
+                    currentOrderNumber++;
+                    txtSecuredOrderNo.setText("YC-" + (1000 + rand.nextInt(9000)));
+                    int total = calculateCartTotal();
+                    txtSecuredTotal.setText(formatPrice(total));
+                    txtSecuredMethod.setText(selectedOrderType.equals("DINE_IN") ? "DINE IN" : "TAKEAWAY");
+                    pageSecured.setVisibility(View.VISIBLE);
+                }, 1200);
+            });
+        }
+
+        if (btnQrPaymentCancel != null) {
+            btnQrPaymentCancel.setOnClickListener(v -> {
+                if (pageQrPayment != null) pageQrPayment.setVisibility(View.GONE);
+                pageCheckoutFlow.setVisibility(View.VISIBLE);
+            });
+        }
 
         // Proceed to checkout simulation
         btnCheckoutProceed.setOnClickListener(v -> {
-            // Processing payment delay
-            Toast.makeText(this, "PROCESSING TRANSACTION...", Toast.LENGTH_SHORT).show();
+            if (selectedPaymentMethod.equals("E-PAY") && selectedEpaySubMethod.isEmpty()) {
+                Toast.makeText(this, "PLEASE SELECT DANA OR OVO TO PROCEED!", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            if (selectedPaymentMethod.equals("QR SCAN")) {
+                pageCheckoutFlow.setVisibility(View.GONE);
+                if (pageQrPayment != null) {
+                    int total = calculateCartTotal();
+                    if (txtQrTotalAmount != null) {
+                        txtQrTotalAmount.setText("TOTAL: " + formatPrice(total));
+                    }
+                    pageQrPayment.setVisibility(View.VISIBLE);
+                }
+                return;
+            }
+
+            // Processing payment delay (E-PAY flow)
+            Toast.makeText(this, "PROCESSING TRANSACTION VIA " + selectedEpaySubMethod + "...", Toast.LENGTH_SHORT).show();
             
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
                 Random rand = new Random();
@@ -1168,6 +1447,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupSecuredAndCrashedActions() {
         // Success Secured Actions
         btnSecuredTrack.setOnClickListener(v -> {
+            addCurrentCartToPastOrders();
             cartItems.clear();
             updateCartUI();
             updateCartBadge();
@@ -1177,6 +1457,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnSecuredHome.setOnClickListener(v -> {
+            addCurrentCartToPastOrders();
             cartItems.clear();
             updateCartUI();
             updateCartBadge();
@@ -1201,25 +1482,89 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupProfileActions() {
         if (btnPastOrders != null) {
-            btnPastOrders.setOnClickListener(v -> Toast.makeText(this, "PAST ORDERS CLICKED!", Toast.LENGTH_SHORT).show());
+            btnPastOrders.setOnClickListener(v -> {
+                populatePastOrdersList();
+                if (pagePastOrders != null) pagePastOrders.setVisibility(View.VISIBLE);
+            });
         }
         if (btnSavedVibes != null) {
-            btnSavedVibes.setOnClickListener(v -> Toast.makeText(this, "SAVED VIBES CLICKED!", Toast.LENGTH_SHORT).show());
+            btnSavedVibes.setOnClickListener(v -> {
+                populateSavedVibesList();
+                if (pageSavedVibes != null) pageSavedVibes.setVisibility(View.VISIBLE);
+            });
         }
         if (btnPaymentMethods != null) {
-            btnPaymentMethods.setOnClickListener(v -> Toast.makeText(this, "PAYMENT METHODS CLICKED!", Toast.LENGTH_SHORT).show());
+            btnPaymentMethods.setOnClickListener(v -> {
+                if (pagePaymentMethods != null) pagePaymentMethods.setVisibility(View.VISIBLE);
+            });
         }
         if (btnSettings != null) {
-            btnSettings.setOnClickListener(v -> Toast.makeText(this, "SETTINGS CLICKED!", Toast.LENGTH_SHORT).show());
+            btnSettings.setOnClickListener(v -> {
+                android.content.SharedPreferences prefs = getSharedPreferences("YorkCafePrefs", MODE_PRIVATE);
+                String activeName = prefs.getString("active_user_name", "Yorkers");
+                if (txtSettingsUsername != null) {
+                    txtSettingsUsername.setText(activeName.toUpperCase());
+                }
+                if (pageSettings != null) pageSettings.setVisibility(View.VISIBLE);
+            });
         }
         if (profileCartBag != null) {
             profileCartBag.setOnClickListener(v -> selectTab("CART"));
         }
+
+        // Back button click handlers
+        if (btnPastOrdersBack != null) {
+            btnPastOrdersBack.setOnClickListener(v -> {
+                if (pagePastOrders != null) pagePastOrders.setVisibility(View.GONE);
+            });
+        }
+        if (btnSavedVibesBack != null) {
+            btnSavedVibesBack.setOnClickListener(v -> {
+                if (pageSavedVibes != null) pageSavedVibes.setVisibility(View.GONE);
+            });
+        }
+        if (btnPaymentBack != null) {
+            btnPaymentBack.setOnClickListener(v -> {
+                if (pagePaymentMethods != null) pagePaymentMethods.setVisibility(View.GONE);
+            });
+        }
+        if (btnSettingsBack != null) {
+            btnSettingsBack.setOnClickListener(v -> {
+                if (pageSettings != null) pageSettings.setVisibility(View.GONE);
+            });
+        }
+
+        // Add payment method placeholder click listener
+        if (btnAddNewPayment != null) {
+            btnAddNewPayment.setOnClickListener(v -> Toast.makeText(this, "ADD NEW PAYMENT METHOD UNDER CONSTRUCTION", Toast.LENGTH_SHORT).show());
+        }
+
+        // Settings Logout Button logic (handles hiding Settings page too!)
+        if (btnLogoutSettings != null) {
+            btnLogoutSettings.setOnClickListener(v -> {
+                android.content.SharedPreferences.Editor editor = getSharedPreferences("YorkCafePrefs", MODE_PRIVATE).edit();
+                editor.putString("active_user_name", "Yorkers");
+                editor.putString("active_user_email", "yorker@york.mail");
+                editor.putString("active_user_photo_uri", "");
+                editor.apply();
+
+                updateUserSessionUI();
+                if (pageSettings != null) pageSettings.setVisibility(View.GONE);
+
+                Toast.makeText(this, "LOGGED OUT SUCCESSFULLY!", Toast.LENGTH_SHORT).show();
+
+                android.content.Intent loginIntent = new android.content.Intent(MainActivity.this, LoginActivity.class);
+                startActivity(loginIntent);
+            });
+        }
+
         if (btnLogout != null) {
             btnLogout.setPaintFlags(btnLogout.getPaintFlags() | android.graphics.Paint.UNDERLINE_TEXT_FLAG);
             btnLogout.setOnClickListener(v -> {
                 android.content.SharedPreferences.Editor editor = getSharedPreferences("YorkCafePrefs", MODE_PRIVATE).edit();
                 editor.putString("active_user_name", "Yorkers");
+                editor.putString("active_user_email", "yorker@york.mail");
+                editor.putString("active_user_photo_uri", "");
                 editor.apply();
 
                 // Update UI immediately using helper
@@ -1230,6 +1575,123 @@ public class MainActivity extends AppCompatActivity {
                 // Redirect to Login screen
                 android.content.Intent loginIntent = new android.content.Intent(MainActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
+            });
+        }
+
+        TextView txtSupportChat = findViewById(R.id.txt_support_chat);
+        TextView txtFaqs = findViewById(R.id.txt_faqs);
+        if (txtSupportChat != null) {
+            txtSupportChat.setPaintFlags(txtSupportChat.getPaintFlags() | android.graphics.Paint.UNDERLINE_TEXT_FLAG);
+            txtSupportChat.setOnClickListener(v -> Toast.makeText(this, "SUPPORT CHAT CLICKED!", Toast.LENGTH_SHORT).show());
+        }
+        if (txtFaqs != null) {
+            txtFaqs.setPaintFlags(txtFaqs.getPaintFlags() | android.graphics.Paint.UNDERLINE_TEXT_FLAG);
+            txtFaqs.setOnClickListener(v -> Toast.makeText(this, "FAQS CLICKED!", Toast.LENGTH_SHORT).show());
+        }
+
+        // Edit Profile listeners
+        if (btnSettingsEditProfile != null) {
+            btnSettingsEditProfile.setOnClickListener(v -> {
+                android.content.SharedPreferences prefs = getSharedPreferences("YorkCafePrefs", MODE_PRIVATE);
+                String name = prefs.getString("active_user_name", "Yorkers");
+                String email = prefs.getString("active_user_email", "yorker@york.mail");
+                if (inputEditProfileName != null) {
+                    inputEditProfileName.setText(name);
+                }
+                if (inputEditProfileEmail != null) {
+                    inputEditProfileEmail.setText(email);
+                }
+                loadProfilePhotoFromPrefs();
+                if (pageEditProfile != null) {
+                    pageEditProfile.setVisibility(View.VISIBLE);
+                }
+            });
+        }
+        if (btnEditProfileBack != null) {
+            btnEditProfileBack.setOnClickListener(v -> {
+                if (pageEditProfile != null) pageEditProfile.setVisibility(View.GONE);
+            });
+        }
+        if (btnEditProfilePhoto != null) {
+            btnEditProfilePhoto.setOnClickListener(v -> {
+                android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(android.content.Intent.CATEGORY_OPENABLE);
+                intent.setType("image/*");
+                startActivityForResult(intent, PICK_IMAGE_REQUEST);
+            });
+        }
+        if (btnEditProfileSave != null) {
+            btnEditProfileSave.setOnClickListener(v -> {
+                String name = inputEditProfileName.getText().toString().trim();
+                String email = inputEditProfileEmail.getText().toString().trim();
+                if (name.isEmpty() || email.isEmpty()) {
+                    Toast.makeText(this, "Fields cannot be empty!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                android.content.SharedPreferences.Editor editor = getSharedPreferences("YorkCafePrefs", MODE_PRIVATE).edit();
+                editor.putString("active_user_name", name);
+                editor.putString("active_user_email", email);
+                editor.putString("registered_name", name);
+                editor.putString("registered_email", email);
+                editor.apply();
+
+                updateUserSessionUI();
+                if (pageEditProfile != null) {
+                    pageEditProfile.setVisibility(View.GONE);
+                }
+                Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
+            });
+        }
+
+        // Change Password listeners
+        if (btnSettingsChangePassword != null) {
+            btnSettingsChangePassword.setOnClickListener(v -> {
+                if (inputChangePwdOld != null) inputChangePwdOld.setText("");
+                if (inputChangePwdNew != null) inputChangePwdNew.setText("");
+                if (inputChangePwdConfirm != null) inputChangePwdConfirm.setText("");
+                if (pageChangePassword != null) {
+                    pageChangePassword.setVisibility(View.VISIBLE);
+                }
+            });
+        }
+        if (btnChangePasswordBack != null) {
+            btnChangePasswordBack.setOnClickListener(v -> {
+                if (pageChangePassword != null) pageChangePassword.setVisibility(View.GONE);
+            });
+        }
+        if (btnChangePasswordSave != null) {
+            btnChangePasswordSave.setOnClickListener(v -> {
+                String oldPwd = inputChangePwdOld.getText().toString();
+                String newPwd = inputChangePwdNew.getText().toString();
+                String confirmPwd = inputChangePwdConfirm.getText().toString();
+                
+                if (oldPwd.isEmpty() || newPwd.isEmpty() || confirmPwd.isEmpty()) {
+                    Toast.makeText(this, "Fields cannot be empty!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                
+                android.content.SharedPreferences prefs = getSharedPreferences("YorkCafePrefs", MODE_PRIVATE);
+                String currentPwd = prefs.getString("registered_password", "");
+                if (currentPwd.isEmpty()) {
+                    Toast.makeText(this, "No registered account found! Please sign up first.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                
+                if (!oldPwd.equals(currentPwd)) {
+                    Toast.makeText(this, "Incorrect old password!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                
+                if (!newPwd.equals(confirmPwd)) {
+                    Toast.makeText(this, "New passwords do not match!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                
+                prefs.edit().putString("registered_password", newPwd).apply();
+                if (pageChangePassword != null) {
+                    pageChangePassword.setVisibility(View.GONE);
+                }
+                Toast.makeText(this, "Password updated successfully!", Toast.LENGTH_SHORT).show();
             });
         }
     }
@@ -1288,6 +1750,32 @@ public class MainActivity extends AppCompatActivity {
         View detailBottomBar = findViewById(R.id.detail_bottom_bar);
         if (detailBottomBar != null) {
             detailBottomBar.setVisibility(View.VISIBLE);
+        }
+
+        if (btnDetailHeart != null) {
+            boolean isSaved = savedVibesSet.contains(name);
+            if (isSaved) {
+                btnDetailHeart.setImageResource(R.drawable.ic_heart_solid);
+                btnDetailHeart.setImageTintList(ColorStateList.valueOf(0xFFFF1744));
+            } else {
+                btnDetailHeart.setImageResource(R.drawable.ic_heart_outline);
+                btnDetailHeart.setImageTintList(ColorStateList.valueOf(0xFF888888));
+            }
+            btnDetailHeart.setOnClickListener(v -> {
+                if (savedVibesSet.contains(name)) {
+                    savedVibesSet.remove(name);
+                    btnDetailHeart.setImageResource(R.drawable.ic_heart_outline);
+                    btnDetailHeart.setImageTintList(ColorStateList.valueOf(0xFF888888));
+                    Toast.makeText(this, name + " removed from Saved Vibes", Toast.LENGTH_SHORT).show();
+                } else {
+                    savedVibesSet.add(name);
+                    btnDetailHeart.setImageResource(R.drawable.ic_heart_solid);
+                    btnDetailHeart.setImageTintList(ColorStateList.valueOf(0xFFFF1744));
+                    Toast.makeText(this, name + " added to Saved Vibes!", Toast.LENGTH_SHORT).show();
+                }
+                saveVibesToPrefs();
+                updateHeartBadgesUI();
+            });
         }
 
         pageDetail.setVisibility(View.VISIBLE);
@@ -1401,9 +1889,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (name.equalsIgnoreCase("Basque Cheesecake")) {
             return new MenuItem("Basque Cheesecake", 32, "Basque style burnt cheesecake, creamy and rich.", R.drawable.york);
-        }
-        if (name.equalsIgnoreCase("Oat Latte")) {
-            return new MenuItem("Oat Latte", 6, "Velvety oat milk coffee option. Pure smooth drift.", R.drawable.b2);
         }
         if (name.equalsIgnoreCase("Kopi Susu Gula Aren")) {
             return new MenuItem("Kopi Susu Gula Aren", 20, "Sweet traditional palm sugar double shot espresso iced milk.", R.drawable.kopi_susu_gula_aren);
@@ -1577,6 +2062,16 @@ public class MainActivity extends AppCompatActivity {
 
         // Set default payment method E-PAY
         selectedPaymentMethod = "E-PAY";
+        selectedEpaySubMethod = "";
+        if (layoutEpayOptions != null) {
+            layoutEpayOptions.setVisibility(View.VISIBLE);
+        }
+        if (btnPayDana != null) {
+            btnPayDana.setCardBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white)));
+        }
+        if (btnPayOvo != null) {
+            btnPayOvo.setCardBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white)));
+        }
         btnPayEpay.setCardBackgroundColor(ColorStateList.valueOf(0xFFDDE1F8));
         btnPayQr.setCardBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white)));
 
@@ -1654,7 +2149,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (pageDetail.getVisibility() == View.VISIBLE) {
+        if (pageEditProfile != null && pageEditProfile.getVisibility() == View.VISIBLE) {
+            pageEditProfile.setVisibility(View.GONE);
+        } else if (pageChangePassword != null && pageChangePassword.getVisibility() == View.VISIBLE) {
+            pageChangePassword.setVisibility(View.GONE);
+        } else if (pageDetail.getVisibility() == View.VISIBLE) {
             pageDetail.setVisibility(View.GONE);
         } else if (pageCheckoutFlow.getVisibility() == View.VISIBLE) {
             pageCheckoutFlow.setVisibility(View.GONE);
@@ -1662,6 +2161,14 @@ public class MainActivity extends AppCompatActivity {
             pageSecured.setVisibility(View.GONE);
         } else if (pageCrashed.getVisibility() == View.VISIBLE) {
             pageCrashed.setVisibility(View.GONE);
+        } else if (pagePastOrders != null && pagePastOrders.getVisibility() == View.VISIBLE) {
+            pagePastOrders.setVisibility(View.GONE);
+        } else if (pageSavedVibes != null && pageSavedVibes.getVisibility() == View.VISIBLE) {
+            pageSavedVibes.setVisibility(View.GONE);
+        } else if (pagePaymentMethods != null && pagePaymentMethods.getVisibility() == View.VISIBLE) {
+            pagePaymentMethods.setVisibility(View.GONE);
+        } else if (pageSettings != null && pageSettings.getVisibility() == View.VISIBLE) {
+            pageSettings.setVisibility(View.GONE);
         } else {
             // If we are currently on the Home page (main menu), exit directly.
             if (mainViewPager != null && mainViewPager.getCurrentItem() == 0) {
@@ -1802,7 +2309,7 @@ public class MainActivity extends AppCompatActivity {
             itemTitle.setTextColor(ContextCompat.getColor(this, R.color.black));
             itemTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             try {
-                itemTitle.setTypeface(ResourcesCompat.getFont(this, R.font.anton));
+                itemTitle.setTypeface(ResourcesCompat.getFont(this, R.font.oswald));
             } catch (Exception e) {
                 itemTitle.setTypeface(android.graphics.Typeface.DEFAULT_BOLD);
             }
@@ -2237,6 +2744,470 @@ public class MainActivity extends AppCompatActivity {
         matrix.setSaturation(0);
         ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
         imageView.setColorFilter(filter);
+    }
+
+    private void addCurrentCartToPastOrders() {
+        if (cartItems.isEmpty()) return;
+        int total = calculateCartTotal();
+        List<CartItem> orderItems = new ArrayList<>(cartItems);
+        String orderId = txtSecuredOrderNo != null ? txtSecuredOrderNo.getText().toString() : "ORDER #" + (100 + new Random().nextInt(900));
+        
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("MMM dd, yyyy", java.util.Locale.US);
+        String currentDate = sdf.format(new java.util.Date());
+        
+        pastOrdersList.add(0, new PastOrder(orderId, currentDate, total, orderItems, "COMPLETED"));
+    }
+
+    private void initializePastOrders() {
+        // Start empty by default as requested
+    }
+
+    private void saveVibesToPrefs() {
+        android.content.SharedPreferences prefs = getSharedPreferences("YorkCafePrefs", MODE_PRIVATE);
+        prefs.edit().putStringSet("saved_vibes_set", savedVibesSet).apply();
+    }
+
+    private void loadVibesFromPrefs() {
+        android.content.SharedPreferences prefs = getSharedPreferences("YorkCafePrefs", MODE_PRIVATE);
+        java.util.Set<String> saved = prefs.getStringSet("saved_vibes_set", null);
+        savedVibesSet.clear();
+        if (saved != null) {
+            savedVibesSet.addAll(saved);
+        } else {
+            savedVibesSet.add("Kopi Susu Gula Aren");
+            savedVibesSet.add("Mango Sugus");
+            savedVibesSet.add("Avocado Coffee");
+        }
+    }
+
+    private void updateHeartBadgesUI() {
+        if (heartBadgeBasqueHome != null) {
+            heartBadgeBasqueHome.setVisibility(savedVibesSet.contains("Basque Cheesecake") ? View.VISIBLE : View.GONE);
+        }
+        if (heartBadgeMangoHome != null) {
+            heartBadgeMangoHome.setVisibility(savedVibesSet.contains("Mango Sugus") ? View.VISIBLE : View.GONE);
+        }
+        if (heartBadgeKopiSusuHome != null) {
+            heartBadgeKopiSusuHome.setVisibility(savedVibesSet.contains("Kopi Susu Gula Aren") ? View.VISIBLE : View.GONE);
+        }
+        if (heartBadgeAvocadoHome != null) {
+            heartBadgeAvocadoHome.setVisibility(savedVibesSet.contains("Avocado Coffee") ? View.VISIBLE : View.GONE);
+        }
+        if (heartBadgeGorohoHome != null) {
+            heartBadgeGorohoHome.setVisibility(savedVibesSet.contains("Goroho Stick") ? View.VISIBLE : View.GONE);
+        }
+        if (heartBadgeMixHome != null) {
+            heartBadgeMixHome.setVisibility(savedVibesSet.contains("Mix Plater") ? View.VISIBLE : View.GONE);
+        }
+
+        // Food Tab Favorite Card badges
+        if (heartBadgeFav1 != null) {
+            heartBadgeFav1.setVisibility(savedVibesSet.contains("Kopi Susu Gula Aren") ? View.VISIBLE : View.GONE);
+        }
+        if (heartBadgeFav2 != null) {
+            heartBadgeFav2.setVisibility(savedVibesSet.contains("Mango Sugus") ? View.VISIBLE : View.GONE);
+        }
+        if (heartBadgeFav3 != null) {
+            heartBadgeFav3.setVisibility(savedVibesSet.contains("Avocado Coffee") ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    private void populateSavedVibesList() {
+        if (savedVibesGrid == null) return;
+        savedVibesGrid.removeAllViews();
+
+        List<MenuItem> items = new ArrayList<>();
+        for (String name : savedVibesSet) {
+            MenuItem item = findMenuItemByName(name);
+            if (item != null) {
+                items.add(item);
+            }
+        }
+
+        if (items.isEmpty()) {
+            TextView emptyText = new TextView(this);
+            emptyText.setText("NO SAVED VIBES YET.\nLOVE YOUR FAVORITE FOODS TO ADD THEM HERE!");
+            emptyText.setTextColor(ContextCompat.getColor(this, R.color.grey_light));
+            emptyText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+            emptyText.setLineSpacing(0, 1.2f);
+            emptyText.setTypeface(null, android.graphics.Typeface.BOLD);
+            emptyText.setGravity(android.view.Gravity.CENTER);
+            emptyText.setPadding(0, 48, 0, 48);
+            savedVibesGrid.addView(emptyText);
+            return;
+        }
+
+        for (int i = 0; i < items.size(); i += 2) {
+            LinearLayout row = new LinearLayout(this);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            rowParams.setMargins(0, 0, 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics()));
+            row.setLayoutParams(rowParams);
+
+            final MenuItem item1 = items.get(i);
+            row.addView(createSavedVibeCard(item1, i));
+
+            if (i + 1 < items.size()) {
+                final MenuItem item2 = items.get(i + 1);
+                row.addView(createSavedVibeCard(item2, i + 1));
+            } else {
+                View dummy = new View(this);
+                LinearLayout.LayoutParams dummyParams = new LinearLayout.LayoutParams(
+                        0,
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        1.0f
+                );
+                dummyParams.setMargins((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, getResources().getDisplayMetrics()), 0, 0, 0);
+                dummy.setLayoutParams(dummyParams);
+                row.addView(dummy);
+            }
+
+            savedVibesGrid.addView(row);
+        }
+    }
+
+    private View createSavedVibeCard(final MenuItem item, int index) {
+        com.google.android.material.card.MaterialCardView card = new com.google.android.material.card.MaterialCardView(this);
+        card.setCardBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        card.setRadius(0);
+        card.setStrokeColor(ContextCompat.getColor(this, R.color.black));
+        card.setStrokeWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2.0f, getResources().getDisplayMetrics()));
+
+        LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
+                0,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                1.0f
+        );
+        int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, getResources().getDisplayMetrics());
+        if (index % 2 == 0) {
+            cardParams.setMargins(0, 0, margin, 0);
+        } else {
+            cardParams.setMargins(margin, 0, 0, 0);
+        }
+        card.setLayoutParams(cardParams);
+
+        card.setOnClickListener(v -> showProductDetail(item.name, item.price, item.imageResId, item.desc));
+
+        LinearLayout cardContent = new LinearLayout(this);
+        cardContent.setOrientation(LinearLayout.VERTICAL);
+        int pad = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics());
+        cardContent.setPadding(pad, pad, pad, pad);
+
+        FrameLayout imgContainer = new FrameLayout(this);
+        imgContainer.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, getResources().getDisplayMetrics())));
+        imgContainer.setBackgroundColor(ContextCompat.getColor(this, R.color.black));
+        
+        ImageView img = new ImageView(this);
+        FrameLayout.LayoutParams imgParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        int imgMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics());
+        imgParams.setMargins(imgMargin, imgMargin, imgMargin, imgMargin);
+        img.setLayoutParams(imgParams);
+        img.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        img.setImageResource(item.imageResId);
+        imgContainer.addView(img);
+
+        com.google.android.material.card.MaterialCardView heartBadge = new com.google.android.material.card.MaterialCardView(this);
+        int badgeSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics());
+        FrameLayout.LayoutParams badgeParams = new FrameLayout.LayoutParams(badgeSize, badgeSize);
+        badgeParams.gravity = android.view.Gravity.TOP | android.view.Gravity.END;
+        badgeParams.setMargins((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, getResources().getDisplayMetrics()), (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, getResources().getDisplayMetrics()), (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, getResources().getDisplayMetrics()), (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, getResources().getDisplayMetrics()));
+        heartBadge.setLayoutParams(badgeParams);
+        heartBadge.setRadius(0);
+        heartBadge.setCardBackgroundColor(ContextCompat.getColor(this, R.color.white));
+        heartBadge.setStrokeColor(ContextCompat.getColor(this, R.color.black));
+        heartBadge.setStrokeWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, getResources().getDisplayMetrics()));
+        
+        ImageView heartImg = new ImageView(this);
+        heartImg.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        heartImg.setImageResource(R.drawable.ic_heart_solid);
+        heartImg.setImageTintList(ColorStateList.valueOf(0xFFFF1744));
+        int heartPad = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
+        heartImg.setPadding(heartPad, heartPad, heartPad, heartPad);
+        heartBadge.addView(heartImg);
+        heartBadge.setOnClickListener(v -> {
+            savedVibesSet.remove(item.name);
+            saveVibesToPrefs();
+            updateHeartBadgesUI();
+            populateSavedVibesList();
+            Toast.makeText(this, item.name + " removed from Saved Vibes", Toast.LENGTH_SHORT).show();
+        });
+        imgContainer.addView(heartBadge);
+
+        cardContent.addView(imgContainer);
+
+        LinearLayout titleRow = new LinearLayout(this);
+        titleRow.setOrientation(LinearLayout.HORIZONTAL);
+        titleRow.setGravity(android.view.Gravity.CENTER_VERTICAL);
+        LinearLayout.LayoutParams titleRowParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        titleRowParams.setMargins(0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()), 0, 0);
+        titleRow.setLayoutParams(titleRowParams);
+
+        TextView title = new TextView(this);
+        title.setText(item.name.toUpperCase());
+        title.setTextColor(ContextCompat.getColor(this, R.color.black));
+        title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        try {
+            title.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(this, R.font.oswald));
+        } catch (Exception e) {
+            title.setTypeface(android.graphics.Typeface.DEFAULT_BOLD);
+        }
+        LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(
+                0,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                1.0f
+        );
+        title.setLayoutParams(titleParams);
+        title.setMaxLines(2);
+        title.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        titleRow.addView(title);
+
+        TextView priceTag = new TextView(this);
+        priceTag.setText(item.price + "K");
+        priceTag.setTextColor(ContextCompat.getColor(this, R.color.white));
+        priceTag.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+        try {
+            priceTag.setTypeface(androidx.core.content.res.ResourcesCompat.getFont(this, R.font.oswald));
+        } catch (Exception e) {
+            priceTag.setTypeface(android.graphics.Typeface.DEFAULT_BOLD);
+        }
+        priceTag.setBackgroundResource(R.drawable.bg_black_sticker);
+        priceTag.setPadding(
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, getResources().getDisplayMetrics()),
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics())
+        );
+        LinearLayout.LayoutParams priceParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        priceParams.setMargins((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 6, getResources().getDisplayMetrics()), 0, 0, 0);
+        priceTag.setLayoutParams(priceParams);
+        titleRow.addView(priceTag);
+
+        cardContent.addView(titleRow);
+        card.addView(cardContent);
+        return card;
+    }
+
+    private void populatePastOrdersList() {
+        if (pastOrdersListContainer == null) return;
+        pastOrdersListContainer.removeAllViews();
+
+        if (pastOrdersList.isEmpty()) {
+            TextView emptyText = new TextView(this);
+            emptyText.setText("NO PAST ORDERS YET.\nPLACE AN ORDER AT THE COUNTER OR CHECKOUT!");
+            emptyText.setTextColor(ContextCompat.getColor(this, R.color.grey_light));
+            emptyText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+            emptyText.setLineSpacing(0, 1.2f);
+            emptyText.setTypeface(null, android.graphics.Typeface.BOLD);
+            emptyText.setGravity(android.view.Gravity.CENTER);
+            emptyText.setPadding(0, 48, 0, 48);
+            pastOrdersListContainer.addView(emptyText);
+            return;
+        }
+
+        for (final PastOrder order : pastOrdersList) {
+            com.google.android.material.card.MaterialCardView card = new com.google.android.material.card.MaterialCardView(this);
+            card.setCardBackgroundColor(ContextCompat.getColor(this, R.color.white));
+            card.setRadius(0);
+            card.setStrokeColor(ContextCompat.getColor(this, R.color.black));
+            card.setStrokeWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2.5f, getResources().getDisplayMetrics()));
+
+            LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            cardParams.setMargins(0, 0, 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources().getDisplayMetrics()));
+            card.setLayoutParams(cardParams);
+
+            LinearLayout contentLayout = new LinearLayout(this);
+            contentLayout.setOrientation(LinearLayout.VERTICAL);
+            int pad = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources().getDisplayMetrics());
+            contentLayout.setPadding(pad, pad, pad, pad);
+
+            RelativeLayout headerRow = new RelativeLayout(this);
+            headerRow.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+            TextView txtOrderTitle = new TextView(this);
+            txtOrderTitle.setText(order.orderId);
+            txtOrderTitle.setTextColor(ContextCompat.getColor(this, R.color.black));
+            txtOrderTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            txtOrderTitle.setTypeface(null, android.graphics.Typeface.BOLD);
+            headerRow.addView(txtOrderTitle);
+
+            TextView txtDate = new TextView(this);
+            txtDate.setText(order.date);
+            txtDate.setTextColor(ContextCompat.getColor(this, R.color.grey_dark));
+            txtDate.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+            RelativeLayout.LayoutParams dateParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            dateParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            txtDate.setLayoutParams(dateParams);
+            headerRow.addView(txtDate);
+
+            contentLayout.addView(headerRow);
+
+            View divider = new View(this);
+            LinearLayout.LayoutParams divParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, getResources().getDisplayMetrics()));
+            divParams.setMargins(0, 8, 0, 8);
+            divider.setLayoutParams(divParams);
+            divider.setBackgroundColor(ContextCompat.getColor(this, R.color.black));
+            contentLayout.addView(divider);
+
+            for (final CartItem item : order.items) {
+                RelativeLayout itemRow = new RelativeLayout(this);
+                itemRow.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                itemRow.setPadding(0, 4, 0, 4);
+
+                TextView txtItemInfo = new TextView(this);
+                txtItemInfo.setText(item.quantity + "x " + item.name.toUpperCase());
+                txtItemInfo.setTextColor(ContextCompat.getColor(this, R.color.black));
+                txtItemInfo.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                itemRow.addView(txtItemInfo);
+
+                String baseName = item.name;
+                if (baseName.contains("(")) {
+                    baseName = baseName.substring(0, baseName.indexOf("(")).trim();
+                }
+                final String finalBaseName = baseName;
+
+                ImageView inlineHeart = new ImageView(this);
+                RelativeLayout.LayoutParams heartParams = new RelativeLayout.LayoutParams(
+                        (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics()),
+                        (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources().getDisplayMetrics())
+                );
+                heartParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                inlineHeart.setLayoutParams(heartParams);
+                inlineHeart.setClickable(true);
+                inlineHeart.setFocusable(true);
+                
+                boolean isSaved = savedVibesSet.contains(finalBaseName);
+                if (isSaved) {
+                    inlineHeart.setImageResource(R.drawable.ic_heart_solid);
+                    inlineHeart.setImageTintList(ColorStateList.valueOf(0xFFFF1744));
+                } else {
+                    inlineHeart.setImageResource(R.drawable.ic_heart_outline);
+                    inlineHeart.setImageTintList(ColorStateList.valueOf(0xFF888888));
+                }
+
+                inlineHeart.setOnClickListener(v -> {
+                    if (savedVibesSet.contains(finalBaseName)) {
+                        savedVibesSet.remove(finalBaseName);
+                        inlineHeart.setImageResource(R.drawable.ic_heart_outline);
+                        inlineHeart.setImageTintList(ColorStateList.valueOf(0xFF888888));
+                        Toast.makeText(this, finalBaseName + " removed from Saved Vibes", Toast.LENGTH_SHORT).show();
+                    } else {
+                        savedVibesSet.add(finalBaseName);
+                        inlineHeart.setImageResource(R.drawable.ic_heart_solid);
+                        inlineHeart.setImageTintList(ColorStateList.valueOf(0xFFFF1744));
+                        Toast.makeText(this, finalBaseName + " added to Saved Vibes!", Toast.LENGTH_SHORT).show();
+                    }
+                    saveVibesToPrefs();
+                    updateHeartBadgesUI();
+                });
+
+                itemRow.addView(inlineHeart);
+                contentLayout.addView(itemRow);
+            }
+
+            RelativeLayout bottomSummary = new RelativeLayout(this);
+            LinearLayout.LayoutParams summaryParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            summaryParams.setMargins(0, 12, 0, 0);
+            bottomSummary.setLayoutParams(summaryParams);
+
+            TextView txtTotal = new TextView(this);
+            txtTotal.setText("TOTAL: " + formatPrice(order.totalPrice));
+            txtTotal.setTextColor(ContextCompat.getColor(this, R.color.black));
+            txtTotal.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+            txtTotal.setTypeface(null, android.graphics.Typeface.BOLD);
+            bottomSummary.addView(txtTotal);
+
+            TextView txtStatus = new TextView(this);
+            txtStatus.setText(order.status);
+            txtStatus.setTextColor(ContextCompat.getColor(this, R.color.white));
+            txtStatus.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+            txtStatus.setTypeface(null, android.graphics.Typeface.BOLD);
+            txtStatus.setBackgroundResource(R.drawable.bg_black_sticker);
+            txtStatus.setPadding(12, 4, 12, 4);
+            RelativeLayout.LayoutParams statusParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            statusParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            txtStatus.setLayoutParams(statusParams);
+            bottomSummary.addView(txtStatus);
+
+            contentLayout.addView(bottomSummary);
+
+            LinearLayout buttonRow = new LinearLayout(this);
+            buttonRow.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            rowParams.setMargins(0, 16, 0, 0);
+            buttonRow.setLayoutParams(rowParams);
+
+            MaterialButton btnReorder = new MaterialButton(this, null, com.google.android.material.R.attr.materialButtonStyle);
+            btnReorder.setText("REORDER");
+            btnReorder.setTextColor(ContextCompat.getColor(this, R.color.white));
+            btnReorder.setStrokeColor(ContextCompat.getColorStateList(this, R.color.black));
+            btnReorder.setStrokeWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, getResources().getDisplayMetrics()));
+            btnReorder.setBackgroundColor(ContextCompat.getColor(this, R.color.black));
+            btnReorder.setCornerRadius(0);
+            btnReorder.setInsetBottom(0);
+            btnReorder.setInsetTop(0);
+            LinearLayout.LayoutParams reorderParams = new LinearLayout.LayoutParams(0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics()), 1.0f);
+            reorderParams.setMarginEnd((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
+            btnReorder.setLayoutParams(reorderParams);
+            btnReorder.setOnClickListener(v -> {
+                for (CartItem item : order.items) {
+                    boolean found = false;
+                    for (CartItem ci : cartItems) {
+                        if (ci.name.equalsIgnoreCase(item.name)) {
+                            ci.quantity += item.quantity;
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        cartItems.add(new CartItem(item.name, item.unitPrice, item.quantity));
+                    }
+                }
+                updateCartUI();
+                updateCartBadge();
+                if (pagePastOrders != null) pagePastOrders.setVisibility(View.GONE);
+                selectTab("CART");
+                Toast.makeText(this, "Items added back to cart!", Toast.LENGTH_SHORT).show();
+            });
+            buttonRow.addView(btnReorder);
+
+            MaterialButton btnDelete = new MaterialButton(this, null, com.google.android.material.R.attr.materialButtonStyle);
+            btnDelete.setText("DELETE");
+            btnDelete.setTextColor(ContextCompat.getColor(this, R.color.white));
+            btnDelete.setStrokeColor(ContextCompat.getColorStateList(this, R.color.black));
+            btnDelete.setStrokeWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1.5f, getResources().getDisplayMetrics()));
+            btnDelete.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+            btnDelete.setCornerRadius(0);
+            btnDelete.setInsetBottom(0);
+            btnDelete.setInsetTop(0);
+            LinearLayout.LayoutParams deleteParams = new LinearLayout.LayoutParams(0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics()), 1.0f);
+            btnDelete.setLayoutParams(deleteParams);
+            btnDelete.setOnClickListener(v -> {
+                pastOrdersList.remove(order);
+                populatePastOrdersList();
+                Toast.makeText(this, "Order deleted successfully", Toast.LENGTH_SHORT).show();
+            });
+            buttonRow.addView(btnDelete);
+
+            contentLayout.addView(buttonRow);
+
+            card.addView(contentLayout);
+            pastOrdersListContainer.addView(card);
+        }
     }
 
     private static class ViewPagerAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<ViewPagerAdapter.ViewHolder> {

@@ -73,8 +73,14 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Save active login session name
-                prefs.edit().putString("active_user_name", regName).apply();
+                // Save active login session name, email, and photo
+                String regPhoto = prefs.getString("registered_photo_uri", "");
+                prefs.edit()
+                    .putString("active_user_name", regName)
+                    .putString("active_user_email", regEmail)
+                    .putString("active_user_photo_uri", regPhoto)
+                    .putBoolean("is_google_login", false)
+                    .apply();
 
                 Toast.makeText(LoginActivity.this, "WELCOME BACK, " + regName.toUpperCase() + "!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -122,7 +128,12 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         android.content.SharedPreferences prefs = getSharedPreferences("YorkCafePrefs", MODE_PRIVATE);
-                        prefs.edit().putString("active_user_name", name).apply();
+                        prefs.edit()
+                            .putString("active_user_name", name)
+                            .putString("active_user_email", name.toLowerCase().replaceAll("\\s+", "") + "@gmail.com")
+                            .putString("active_user_photo_uri", "")
+                            .putBoolean("is_google_login", true)
+                            .apply();
 
                         Toast.makeText(LoginActivity.this, "SIGNED IN WITH GOOGLE!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);

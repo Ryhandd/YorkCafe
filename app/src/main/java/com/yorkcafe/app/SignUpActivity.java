@@ -59,12 +59,12 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Save registered credentials to SharedPreferences
                 android.content.SharedPreferences prefs = getSharedPreferences("YorkCafePrefs", MODE_PRIVATE);
                 prefs.edit()
                     .putString("registered_name", name)
                     .putString("registered_email", email)
                     .putString("registered_password", password)
+                    .putBoolean("is_google_login", false)
                     .apply();
 
                 // Success mock registration
